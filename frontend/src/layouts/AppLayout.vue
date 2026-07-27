@@ -1,22 +1,19 @@
 <template>
-  <div class="flex h-screen bg-gray-100 dark:bg-[#0F0F0F]">
-
+  <div class="flex h-screen">
     <Sidebar />
 
-    <div class="flex flex-col flex-1">
-
+    <div class="flex-1 flex flex-col">
       <Navbar />
 
-      <main class="flex-1 p-6 overflow-auto">
-        <router-view />
+      <main class="flex-1 p-6">
+        <RouterView />
       </main>
-
     </div>
-
   </div>
 </template>
 
 <script setup>
 import Sidebar from '@/components/navigation/Sidebar.vue'
 import Navbar from '@/components/navigation/Navbar.vue'
+import { RouterView } from 'vue-router'
 </script>

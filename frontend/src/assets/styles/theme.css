@@ -1,0 +1,41 @@
+:root {
+
+  /* Light Theme */
+
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+
+  --sidebar: #E8EEF4;
+
+  --primary: #005B41;
+  --secondary: #008170;
+
+  --text: #111827;
+  --text-secondary: #6B7280;
+
+  --success: #22C55E;
+  --warning: #FACC15;
+  --danger: #EF4444;
+  --info: #38BDF8;
+
+}
+
+.dark{
+
+  --bg:#0F0F0F;
+  --surface:#232D3F;
+
+  --sidebar:#232D3F;
+
+  --primary:#005B41;
+  --secondary:#008170;
+
+  --text:#F8FAFC;
+  --text-secondary:#CBD5E1;
+
+  --success:#22C55E;
+  --warning:#FACC15;
+  --danger:#EF4444;
+  --info:#38BDF8;
+
+}
