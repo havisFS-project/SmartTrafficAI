@@ -14,86 +14,207 @@ const menus = [
     name: "Dashboard",
     icon: HomeIcon,
     path: "/",
+    badge: null,
   },
   {
     name: "CCTV",
     icon: VideoCameraIcon,
     path: "/cctv",
+    badge: 3,
   },
   {
     name: "Analytics",
     icon: ChartBarIcon,
     path: "/analytics",
+    badge: null,
   },
   {
     name: "Reports",
     icon: DocumentChartBarIcon,
     path: "/reports",
+    badge: null,
   },
   {
     name: "AI Assistant",
     icon: SparklesIcon,
     path: "/chatbot",
+    badge: "AI",
+  },
+]
+
+const systems = [
+  {
+    name: "Backend",
+    status: "Online",
+  },
+  {
+    name: "AI Engine",
+    status: "Ready",
+  },
+  {
+    name: "MongoDB",
+    status: "Connected",
   },
 ]
 </script>
 
 <template>
+  <aside class="flex h-screen w-72 flex-col bg-[#232D3F] text-white">
 
-<aside
-class="w-72 bg-[#232D3F] text-white h-screen flex flex-col justify-between">
+    <!-- Logo -->
+    <div class="border-b border-white/5 px-7 py-8">
 
-<div>
+      <h1 class="text-3xl font-bold tracking-tight text-[#00A884]">
+        SmartTrafficAI
+      </h1>
 
-<div class="p-6">
+      <p class="mt-2 text-sm text-gray-400">
+        AI Powered Traffic Monitoring
+      </p>
 
-<h1 class="text-3xl font-bold text-[#008170]">
+    </div>
 
-SmartTrafficAI
+    <!-- Navigation -->
+    <nav class="flex-1 overflow-y-auto py-6 scrollbar-thin scrollbar-thumb-[#005B41]">
 
-</h1>
+      <!-- OVERVIEW -->
+      <div>
 
-<p class="text-sm text-gray-400">
+        <p
+          class="px-7 pb-3 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500"
+        >
+          Overview
+        </p>
 
-AI Traffic Monitoring
+        <RouterLink
+           v-for="menu in menus"
+           :key="menu.name"
+           :to="menu.path"
+           class="group relative mx-3 mb-2 flex items-center gap-4 rounded-xl px-5 py-3 text-gray-300 transition-all duration-300 hover:bg-[#005B41]/20 hover:text-white hover:shadow-md"
+           active-class="bg-[#005B41] text-white shadow-lg"
+        >
+          <div class="absolute left-0 h-8 w-1 rounded-r-full bg-[#00A884]"></div>
+          <component
+            :is="menu.icon"
+            class="h-6 w-6 transition-all duration-300 group-hover:scale-110"
+          />
 
-</p>
+          <span class="font-medium transition-all duration-300 group-hover:translate-x-1">
+            {{ menu.name }}
+          </span>
 
-</div>
+          <span
+            v-if="menu.badge"
+            class="ml-auto rounded-full bg-[#008170] px-2 py-1 text-xs font-semibold text-white"
+          >
+            {{ menu.badge }}
+          </span>
+        </RouterLink>
 
-<nav class="mt-8">
+      </div>
 
-<RouterLink
-  v-for="menu in menus"
-  :key="menu.name"
-  :to="menu.path"
-  class="group flex items-center gap-3 mx-3 my-1 rounded-xl px-4 py-3 transition-all duration-300"
-  active-class="bg-[#005B41] text-white shadow-lg"
->
-  <component
-    :is="menu.icon"
-    class="w-6 h-6 transition-all duration-300"
-  />
+      <!-- SYSTEM -->
+      <div class="mt-10">
 
-  <span class="font-medium">
-    {{ menu.name }}
-  </span>
-</RouterLink>
+        <p
+          class="px-7 pb-4 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500"
+        >
+          System
+        </p>
 
-</nav>
+        <div class="space-y-4 px-7">
 
-</div>
+          <div 
+            v-for="system in systems"
+            :key="system.name"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-white/5"
+          >
+          
+          <div class="h-2 w-2 rounded-full bg-[#00A884]"></div>
+          
+          <div>
+            
+            <p class="text-sm font-medium">
+              {{ system.name }}
+            </p>
+            
+            <p class="text-xs text-[#00D68F]">
+              {{ system.status }}
+            </p>
+          
+          </div>
+          </div>
 
-<div class="border-t border-gray-700 p-6">
+        </div>
 
-<p class="text-sm text-gray-300">
+      </div>
 
-👤 Havis
+      <!-- Divider -->
+      <div class="mx-6 my-8 border-t border-white/10"></div>
 
-</p>
+      <!-- Preferences -->
+      <div>
 
-</div>
+        <p
+          class="px-7 pb-4 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500"
+        >
+          Preferences
+        </p>
 
-</aside>
+        <div class="space-y-2 px-3">
 
+          <button
+            class="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-gray-300 transition hover:bg-[#005B41]/30 hover:text-white"
+          >
+            <Cog6ToothIcon class="h-6 w-6" />
+
+            Settings
+          </button>
+
+          <button
+            class="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-gray-300 transition hover:bg-[#005B41]/30 hover:text-white"
+          >
+            <MoonIcon class="h-6 w-6" />
+
+            Dark Mode
+          </button>
+
+        </div>
+
+      </div>
+
+    </nav>
+
+    <!-- Footer -->
+    <div class="border-t border-white/10 p-5">
+
+      <div class="flex items-center gap-4">
+
+        <div
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-[#005B41] to-[#008170] font-bold shadow-lg"
+        >
+          HF
+        </div>
+
+        <div>
+
+          <p class="font-semibold">
+            Havis
+          </p>
+
+          <p class="text-sm text-gray-400">
+            Administrator
+          </p>
+
+          <p class="mt-1 text-xs text-gray-500">
+            Version 0.1.0
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
 </template>
