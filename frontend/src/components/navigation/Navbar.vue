@@ -1,6 +1,101 @@
+<script setup>
+import {
+  Bars3Icon,
+  MagnifyingGlassIcon,
+  BellIcon,
+  MoonIcon,
+} from "@heroicons/vue/24/outline"
+
+import { BaseInput } from "@/components/ui"
+</script>
+
 <template>
-  <header class="h-16 bg-white shadow flex items-center px-6">
-    Navbar
+  <header
+    class="flex h-20 items-center justify-between border-b border-white/5 bg-[#1F2937] px-8 shadow-sm shadow-black/20"
+  >
+
+    <!-- LEFT -->
+    <div class="flex items-center gap-6">
+
+      <!-- Sidebar Toggle -->
+      <button
+        class="rounded-xl p-2 transition duration-300 hover:scale-105 hover:bg-white/5"
+      >
+        <Bars3Icon
+          class="h-6 w-6 text-gray-300"
+        />
+      </button>
+
+      <!-- Search -->
+      <div class="relative w-96">
+
+        <MagnifyingGlassIcon
+          class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+        />
+
+        <BaseInput
+          placeholder="Search cameras, roads, reports..."
+          class="pl-12"
+        />
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="flex items-center gap-3">
+
+      <!-- Notification -->
+      <div class="relative">
+
+      <button
+        class="rounded-xl p-2 transition-all duration-300 hover:scale-105 hover:bg-white/5"
+      >
+        <BellIcon class="h-6 w-6 text-gray-300"/>
+      </button>
+
+      <span
+        class="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-red-500"
+      ></span>
+
+      </div>
+
+      <!-- Dark Mode -->
+      <button
+        class="rounded-xl p-2 transition duration-300 hover:scale-105 hover:bg-white/5"
+      >
+        <MoonIcon
+          class="h-6 w-6 text-gray-300"
+        />
+      </button>
+
+      <!-- User -->
+      <div
+        class="ml-3 flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 transition hover:bg-white/5 hover:shadow-md"
+      >
+
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-[#005B41] to-[#008170] font-semibold text-white ring-2 ring-[#008170]/20"
+        >
+          HF
+        </div>
+
+        <div>
+
+          <p class="font-medium text-white">
+            Havis
+          </p>
+
+          <p class="text-xs text-gray-400">
+            Administrator
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </header>
 </template>
 
