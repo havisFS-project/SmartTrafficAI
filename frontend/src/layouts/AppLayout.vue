@@ -10,10 +10,12 @@
       </main>
     </div>
   </div>
+  <FloatingAssistant/>
 </template>
 
 <script setup>
 import Sidebar from '@/components/navigation/Sidebar.vue'
 import Navbar from '@/components/navigation/Navbar.vue'
+import FloatingAssistant from "@/components/ai/FloatingAssistant.vue"
 import { RouterView } from 'vue-router'
 </script>
