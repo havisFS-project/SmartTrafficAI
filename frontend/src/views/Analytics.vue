@@ -4,6 +4,14 @@ import AnalyticsHeader from "@/components/analytics/AnalyticsHeader.vue"
 
 import AnalyticsStatCard from "@/components/analytics/AnalyticsStatCard.vue"
 
+import TrafficTrendChart from "@/components/analytics/TrafficTrendChart.vue"
+
+import TrafficDensityChart from "@/components/analytics/TrafficDensityChart.vue"
+
+import VehicleDistribution from "@/components/analytics/VehicleDistribution.vue"
+
+import PredictionHistory from "@/components/analytics/PredictionHistory.vue"
+
 import {
 
 TruckIcon,
@@ -88,6 +96,26 @@ color="bg-yellow-500/10 text-yellow-400"
 />
 
 </div>
+
+<section class="grid grid-cols-3 gap-6">
+
+    <div class="col-span-2">
+
+        <TrafficTrendChart/>
+
+    </div>
+
+    <TrafficDensityChart/>
+
+</section>
+
+<section class="grid gap-6 md:grid-cols-2">
+
+    <VehicleDistribution/>
+
+    <PredictionHistory/>
+
+</section>
 
 </div>
 
