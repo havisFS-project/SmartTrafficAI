@@ -1,122 +1,106 @@
 <script setup>
-
 import AnalyticsHeader from "@/components/analytics/AnalyticsHeader.vue"
+import AnalyticsToolbar from "@/components/analytics/AnalyticsToolbar.vue"
 
 import AnalyticsStatCard from "@/components/analytics/AnalyticsStatCard.vue"
 
 import TrafficTrendChart from "@/components/analytics/TrafficTrendChart.vue"
-
 import TrafficDensityChart from "@/components/analytics/TrafficDensityChart.vue"
 
 import VehicleDistribution from "@/components/analytics/VehicleDistribution.vue"
-
 import PredictionHistory from "@/components/analytics/PredictionHistory.vue"
 
+import AIInsight from "@/components/analytics/AIInsight.vue"
+import HeatmapCard from "@/components/analytics/HeatmapCard.vue"
+
 import {
-
-TruckIcon,
-
-BoltIcon,
-
-CpuChipIcon,
-
-SignalIcon,
-
+  TruckIcon,
+  BoltIcon,
+  CpuChipIcon,
+  SignalIcon,
 } from "@heroicons/vue/24/outline"
-
 </script>
 
 <template>
+  <div class="space-y-6">
 
-<div class="space-y-6">
+    <!-- Header -->
 
-<AnalyticsHeader/>
+    <AnalyticsHeader />
 
-<div
-class="grid
-gap-6
-sm:grid-cols-1
-md:grid-cols-2
-xl:grid-cols-4">
+    <!-- Toolbar -->
 
-<AnalyticsStatCard
+    <AnalyticsToolbar />
 
-title="Vehicles"
+    <!-- Stat Cards -->
 
-value="15,284"
+    <section
+      class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
+    >
+      <AnalyticsStatCard
+        title="Vehicles"
+        value="15,284"
+        subtitle="+8% Today"
+        :icon="TruckIcon"
+        color="bg-green-500/10 text-green-400"
+      />
 
-subtitle="+8% Today"
+      <AnalyticsStatCard
+        title="Average Speed"
+        value="48 km/h"
+        subtitle="Realtime"
+        :icon="BoltIcon"
+        color="bg-blue-500/10 text-blue-400"
+      />
 
-:icon="TruckIcon"
+      <AnalyticsStatCard
+        title="AI Accuracy"
+        value="98.7%"
+        subtitle="YOLO v11"
+        :icon="CpuChipIcon"
+        color="bg-cyan-500/10 text-cyan-400"
+      />
 
-color="bg-green-500/10 text-green-400"
+      <AnalyticsStatCard
+        title="Traffic Density"
+        value="Medium"
+        subtitle="Current"
+        :icon="SignalIcon"
+        color="bg-yellow-500/10 text-yellow-400"
+      />
+    </section>
 
-/>
+    <!-- Trend -->
 
-<AnalyticsStatCard
+    <section class="grid gap-6 xl:grid-cols-3">
 
-title="Average Speed"
+      <div class="xl:col-span-2">
+        <TrafficTrendChart />
+      </div>
 
-value="48 km/h"
+      <TrafficDensityChart />
 
-subtitle="Realtime"
+    </section>
 
-:icon="BoltIcon"
+    <!-- Distribution -->
 
-color="bg-blue-500/10 text-blue-400"
+    <section class="grid gap-6 md:grid-cols-2">
 
-/>
+      <VehicleDistribution />
 
-<AnalyticsStatCard
+      <PredictionHistory />
 
-title="AI Accuracy"
+    </section>
 
-value="98.7%"
+    <!-- AI -->
 
-subtitle="YOLO v11"
+    <section class="grid gap-6 xl:grid-cols-2">
 
-:icon="CpuChipIcon"
+      <AIInsight />
 
-color="bg-cyan-500/10 text-cyan-400"
+      <HeatmapCard />
 
-/>
+    </section>
 
-<AnalyticsStatCard
-
-title="Traffic Density"
-
-value="Medium"
-
-subtitle="Current"
-
-:icon="SignalIcon"
-
-color="bg-yellow-500/10 text-yellow-400"
-
-/>
-
-</div>
-
-<section class="grid grid-cols-3 gap-6">
-
-    <div class="col-span-2">
-
-        <TrafficTrendChart/>
-
-    </div>
-
-    <TrafficDensityChart/>
-
-</section>
-
-<section class="grid gap-6 md:grid-cols-2">
-
-    <VehicleDistribution/>
-
-    <PredictionHistory/>
-
-</section>
-
-</div>
-
+  </div>
 </template>
