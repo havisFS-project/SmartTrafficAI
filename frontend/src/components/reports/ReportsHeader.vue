@@ -1,8 +1,6 @@
 <script setup>
-import {
-  ArrowDownTrayIcon,
-  DocumentTextIcon,
-} from "@heroicons/vue/24/outline"
+import { DocumentTextIcon } from "@heroicons/vue/24/outline"
+import ReportsExport from "./ReportsExport.vue"
 </script>
 
 <template>
@@ -24,17 +22,10 @@ import {
         class="flex items-center gap-3 rounded-2xl bg-[#1B2435] px-6 py-3 text-white transition hover:bg-[#2B3548]"
       >
         <DocumentTextIcon class="h-5 w-5" />
-
         Generate Report
       </button>
 
-      <button
-        class="flex items-center gap-3 rounded-2xl bg-[#008170] px-6 py-3 text-white transition hover:bg-[#00A884]"
-      >
-        <ArrowDownTrayIcon class="h-5 w-5" />
-
-        Export
-      </button>
+      <ReportsExport />
     </div>
   </section>
 </template>

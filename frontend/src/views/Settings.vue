@@ -1,5 +1,12 @@
+<script setup>
+import SettingsHeader from "@/components/settings/SettingsHeader.vue"
+import ProfileSettings from "@/components/settings/ProfileSettings.vue"
+</script>
+
 <template>
-  <h1 class="text-3xl font-bold">
-    Settings
-  </h1>
+  <div class="space-y-6">
+    <SettingsHeader />
+
+    <ProfileSettings />
+  </div>
 </template>

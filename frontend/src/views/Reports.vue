@@ -2,6 +2,7 @@
 import ReportsHeader from "@/components/reports/ReportsHeader.vue"
 import ReportsToolbar from "@/components/reports/ReportsToolbar.vue"
 import ReportsSummaryCard from "@/components/reports/ReportsSummaryCard.vue"
+import ReportsTable from "@/components/reports/ReportsTable.vue"
 
 import {
   DocumentTextIcon,
@@ -13,12 +14,14 @@ import {
 
 <template>
   <div class="space-y-6">
+    <!-- Header -->
     <ReportsHeader />
+
+    <!-- Toolbar -->
     <ReportsToolbar />
 
-    <section 
-      class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4"
-    >
+    <!-- Summary -->
+    <section class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
       <ReportsSummaryCard
         title="Total Reports"
         value="1,248"
@@ -51,5 +54,8 @@ import {
         color="bg-yellow-500/10 text-yellow-400"
       />
     </section>
+
+    <!-- Reports Table -->
+    <ReportsTable />
   </div>
 </template>

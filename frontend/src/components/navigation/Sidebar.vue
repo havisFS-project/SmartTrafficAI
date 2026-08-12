@@ -163,13 +163,17 @@ const systems = [
 
         <div class="space-y-2 px-3">
 
-          <button
-            class="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-gray-300 transition hover:bg-[#005B41]/30 hover:text-white"
+          <RouterLink
+            to="/settings"
+            class="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-gray-300 transition-all duration-300 hover:bg-white/5 hover:text-white"
+            active-class="bg-[#005B41] text-white"
           >
             <Cog6ToothIcon class="h-6 w-6" />
 
-            Settings
-          </button>
+            <span class="font-medium">
+              Settings
+            </span>
+          </RouterLink>
 
           <button
             class="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-gray-300 transition hover:bg-[#005B41]/30 hover:text-white"
