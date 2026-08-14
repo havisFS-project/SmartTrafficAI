@@ -5,7 +5,7 @@
     <div class="flex-1 flex flex-col">
       <Navbar />
 
-      <main class="flex-1 overflow-auto bg-[#111827] p-8">
+      <main class="app-bg flex-1 overflow-auto p-8">
         <RouterView />
       </main>
     </div>

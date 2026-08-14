@@ -1,4 +1,36 @@
 :root {
+  --color-bg: #111827;
+  --color-surface: #232D3F;
+  --color-surface-soft: #1B2435;
+  --color-surface-hover: #2B3548;
+
+  --color-text: #F8FAFC;
+  --color-text-muted: #94A3B8;
+
+  --color-primary-dark: #005B41;
+  --color-primary: #008170;
+  --color-primary-light: #00A884;
+
+  --color-border: rgba(255, 255, 255, 0.05);
+}
+
+html.light {
+  --color-bg: #F1F5F9;
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #E2E8F0;
+  --color-surface-hover: #CBD5E1;
+
+  --color-text: #0F172A;
+  --color-text-muted: #64748B;
+
+  --color-primary-dark: #005B41;
+  --color-primary: #008170;
+  --color-primary-light: #00A884;
+
+  --color-border: rgba(15, 23, 42, 0.08);
+}
+
+:root {
 
   /* Light Theme */
 
@@ -61,4 +93,58 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #00C897;
+}
+
+.app-bg {
+  background-color: var(--color-bg);
+}
+
+.app-surface {
+  background-color: var(--color-surface);
+}
+
+.app-surface-soft {
+  background-color: var(--color-surface-soft);
+}
+
+.app-surface-hover:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.app-text {
+  color: var(--color-text);
+}
+
+.app-text-muted {
+  color: var(--color-text-muted);
+}
+
+.app-border {
+  border-color: var(--color-border);
+}
+
+.app-primary {
+  color: var(--color-primary-light);
+}
+
+.app-primary-bg {
+  background-color: var(--color-primary);
+}
+
+.app-primary-bg:hover {
+  background-color: var(--color-primary-light);
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

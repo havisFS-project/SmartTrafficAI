@@ -11,7 +11,7 @@ import { BaseInput } from "@/components/ui"
 
 <template>
   <header
-    class="flex h-20 items-center justify-between border-b border-white/5 bg-[#1F2937] px-8 shadow-sm shadow-black/20"
+    class="app-surface app-border flex h-20 items-center justify-between border-b px-8"
   >
 
     <!-- LEFT -->
@@ -82,11 +82,11 @@ import { BaseInput } from "@/components/ui"
 
         <div>
 
-          <p class="font-medium text-white">
+          <p class="app-text font-medium">
             Havis
           </p>
 
-          <p class="text-xs text-gray-400">
+          <p class="app-text-muted text-xs">
             Administrator
           </p>
 

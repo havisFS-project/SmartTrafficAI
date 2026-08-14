@@ -59,12 +59,12 @@ const systems = [
 </script>
 
 <template>
-  <aside class="flex h-screen w-72 flex-col bg-[#232D3F] text-white">
+  <aside class="app-surface flex h-screen w-72 flex-col">
 
     <!-- Logo -->
     <div class="border-b border-white/5 px-7 py-8">
 
-      <h1 class="text-3xl font-bold tracking-tight text-[#00A884]">
+      <h1 class="text-2xl font-bold tracking-wide text-[#00A884]">
         SmartTrafficAI
       </h1>
 
