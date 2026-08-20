@@ -1,5 +1,7 @@
 <script setup>
 import {
+  BaseCard,
+  BaseBadge,
   BaseStatCard,
 } from "@/components/ui"
 
@@ -9,6 +11,7 @@ import {
   CpuChipIcon,
   SignalIcon,
 } from "@heroicons/vue/24/outline"
+
 import LiveCameraCard from "@/components/dashboard/LiveCameraCard.vue"
 import AIPredictionCard from "@/components/dashboard/AIPredictionCard.vue"
 import RecentEventsCard from "@/components/dashboard/RecentEventsCard.vue"
@@ -24,15 +27,13 @@ import SystemStatusCard from "@/components/dashboard/SystemStatusCard.vue"
 
   <section>
     
-    <h1
-      class="text-3xl font-bold text-white">
+    <h1 class="app-text text-3xl font-bold">
 
       Good Evening, Havis 👋
 
     </h1>
     
-    <p
-      class="mt-2 text-gray-400">
+    <p class="app-text-muted mt-2">
 
       Welcome back to SmartTrafficAI Dashboard.
 
@@ -92,11 +93,11 @@ color="yellow"
 
       <div>
 
-        <h2 class="text-xl font-semibold text-white">
+        <h2 class="app-text text-xl font-semibold">
           Traffic Analytics
         </h2>
 
-        <p class="mt-1 text-sm text-gray-400">
+        <p class="app-text-muted mt-2">
           Vehicle traffic trend for the last 24 hours
         </p>
 
@@ -109,11 +110,17 @@ color="yellow"
     </div>
 
     <div
-      class="flex h-80 items-center justify-center rounded-xl border border-dashed border-gray-700 bg-[#1A2332]"
+      class="app-surface-soft app-border flex h-80 items-center justify-center rounded-xl border border-dashed"
     >
-      <p class="text-gray-500">
-        Chart Coming Soon
-      </p>
+      <div class="text-center">
+        <p class="app-text text-lg font-medium">
+          Traffic Analytics
+        </p>
+
+        <p class="app-text-muted mt-2 text-sm">
+          Chart Coming Soon
+        </p>
+      </div>
     </div>
 
   </BaseCard>
@@ -122,13 +129,15 @@ color="yellow"
 
   <BaseCard>
 
-    <h2 class="text-xl font-semibold text-white">
+  <div class="mb-6">
+    <h2 class="app-text text-xl font-semibold">
       Recent Alerts
     </h2>
 
-    <p class="mb-6 mt-1 text-sm text-gray-400">
+    <p class="app-text-muted mt-1 text-sm">
       Latest traffic events
     </p>
+  </div>
 
     <div class="space-y-4">
 
@@ -137,7 +146,7 @@ color="yellow"
           🚨 Accident Detected
         </p>
 
-        <p class="mt-1 text-sm text-gray-400">
+        <p class="app-text-muted mt-1 text-sm">
           Highway KM 12
         </p>
       </div>
@@ -147,7 +156,7 @@ color="yellow"
           ⚠ Heavy Traffic
         </p>
 
-        <p class="mt-1 text-sm text-gray-400">
+        <p class="app-text-muted mt-1 text-sm">
           City Center
         </p>
       </div>
@@ -157,7 +166,7 @@ color="yellow"
           ✅ Road Clear
         </p>
 
-        <p class="mt-1 text-sm text-gray-400">
+        <p class="app-text-muted mt-1 text-sm">
           South Ring Road
         </p>
       </div>

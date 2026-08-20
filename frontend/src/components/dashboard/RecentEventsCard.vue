@@ -34,62 +34,42 @@ const events = [
 <template>
 
 <div
-class="rounded-2xl border border-white/5 bg-[#232D3F] p-6 shadow-lg">
+  class="app-surface app-border rounded-2xl border p-6 shadow-lg"
+>
+  <div class="mb-6 flex items-center justify-between">
+    <h2 class="app-text text-xl font-semibold">
+      Recent Events
+    </h2>
 
-<div class="mb-6 flex items-center justify-between">
+    <ClockIcon class="app-text-muted h-6 w-6" />
+  </div>
 
-<h2
-class="text-xl font-semibold text-white">
+  <div class="space-y-4">
+    <div
+      v-for="event in events"
+      :key="event.title"
+      class="app-surface-soft flex gap-4 rounded-xl p-4 transition hover:opacity-90"
+    >
+      <component
+        :is="event.icon"
+        :class="['h-6 w-6', event.color]"
+      />
 
-Recent Events
+      <div>
+        <p class="app-text font-medium">
+          {{ event.title }}
+        </p>
 
-</h2>
+        <p class="app-text-muted text-sm">
+          {{ event.location }}
+        </p>
 
-<ClockIcon
-class="h-6 w-6 text-gray-400"/>
-
-</div>
-
-<div class="space-y-5">
-
-<div
-v-for="event in events"
-:key="event.title"
-class="flex gap-4 rounded-xl bg-[#1A2332] p-4 transition hover:bg-[#202C3D]">
-
-<component
-:is="event.icon"
-:class="['h-6 w-6',event.color]" />
-
-<div>
-
-<p
-class="font-medium text-white">
-
-{{ event.title }}
-
-</p>
-
-<p
-class="text-sm text-gray-400">
-
-{{ event.location }}
-
-</p>
-
-<p
-class="mt-1 text-xs text-gray-500">
-
-{{ event.time }}
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
+        <p class="app-text-muted mt-1 text-xs">
+          {{ event.time }}
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
 </template>

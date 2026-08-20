@@ -1,6 +1,7 @@
 <script setup>
 import BaseCard from "./BaseCard.vue"
-const props = defineProps({
+
+defineProps({
   title: {
     type: String,
     required: true,
@@ -27,69 +28,66 @@ const props = defineProps({
   },
 })
 
-const colors = {
+const colorMap = {
   green: {
-    bg: "bg-[#005B41]/20",
-    icon: "text-[#00A884]",
+    icon: "text-green-400",
+    background: "bg-green-500/10",
   },
 
   blue: {
-    bg: "bg-blue-500/20",
     icon: "text-blue-400",
+    background: "bg-blue-500/10",
+  },
+
+  cyan: {
+    icon: "text-cyan-400",
+    background: "bg-cyan-500/10",
   },
 
   yellow: {
-    bg: "bg-yellow-500/20",
     icon: "text-yellow-400",
+    background: "bg-yellow-500/10",
   },
 
   red: {
-    bg: "bg-red-500/20",
     icon: "text-red-400",
+    background: "bg-red-500/10",
   },
 }
 </script>
 
 <template>
-  <BaseCard>
-
+  <BaseCard class="group">
     <div class="flex items-start justify-between">
-
       <div>
-
-        <p class="text-sm text-gray-400">
+        <p class="app-text-muted text-sm">
           {{ title }}
         </p>
 
-        <h2 class="mt-3 text-3xl font-bold text-white">
+        <h2 class="app-text mt-3 text-3xl font-bold">
           {{ value }}
         </h2>
 
-        <p class="mt-2 text-sm text-gray-500">
+        <p class="app-text-muted mt-2 text-sm">
           {{ subtitle }}
         </p>
-
       </div>
 
       <div
         :class="[
-          'flex h-12 w-12 items-center justify-center rounded-xl',
-          colors[color].bg,
+          'rounded-xl p-3 transition-transform duration-300 group-hover:scale-105',
+          colorMap[color]?.background ?? colorMap.green.background,
         ]"
       >
-
         <component
-          :is="icon"
           v-if="icon"
+          :is="icon"
           :class="[
             'h-6 w-6',
-            colors[color].icon,
+            colorMap[color]?.icon ?? colorMap.green.icon,
           ]"
         />
-
       </div>
-
     </div>
-
   </BaseCard>
 </template>

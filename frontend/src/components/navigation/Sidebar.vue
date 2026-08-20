@@ -60,46 +60,46 @@ const systems = [
 
 <template>
   <aside class="app-surface flex h-screen w-72 flex-col">
-
     <!-- Logo -->
-    <div class="border-b border-white/5 px-7 py-8">
-
+    <div class="app-border border-b px-7 py-8">
       <h1 class="text-2xl font-bold tracking-wide text-[#00A884]">
         SmartTrafficAI
       </h1>
 
-      <p class="mt-2 text-sm text-gray-400">
+      <p class="app-text-muted mt-2 text-sm">
         AI Powered Traffic Monitoring
       </p>
-
     </div>
 
     <!-- Navigation -->
     <nav class="flex-1 overflow-y-auto py-6 scrollbar-thin scrollbar-thumb-[#005B41]">
-
-      <!-- OVERVIEW -->
+      <!-- Overview -->
       <div>
-
         <p
-          class="px-7 pb-3 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500"
+          class="app-text-muted px-7 pb-3 text-xs font-semibold uppercase tracking-[0.25em]"
         >
           Overview
         </p>
 
         <RouterLink
-           v-for="menu in menus"
-           :key="menu.name"
-           :to="menu.path"
-           class="group relative mx-3 mb-2 flex items-center gap-4 rounded-xl px-5 py-3 text-gray-300 transition-all duration-300 hover:bg-[#005B41]/20 hover:text-white hover:shadow-md"
-           active-class="bg-[#005B41] text-white shadow-lg"
+          v-for="menu in menus"
+          :key="menu.name"
+          :to="menu.path"
+          class="app-text-muted group relative mx-3 mb-2 flex items-center gap-4 rounded-xl px-5 py-3 transition-all duration-300 hover:bg-[#005B41]/10 hover:text-current hover:shadow-md"
+          active-class="bg-[#005B41] text-white shadow-lg"
         >
-          <div class="absolute left-0 h-8 w-1 rounded-r-full bg-[#00A884]"></div>
+          <div
+            class="absolute left-0 h-8 w-1 rounded-r-full bg-[#00A884]"
+          />
+
           <component
             :is="menu.icon"
             class="h-6 w-6 transition-all duration-300 group-hover:scale-110"
           />
 
-          <span class="font-medium transition-all duration-300 group-hover:translate-x-1">
+          <span
+            class="font-medium transition-all duration-300 group-hover:translate-x-1"
+          >
             {{ menu.name }}
           </span>
 
@@ -110,62 +110,52 @@ const systems = [
             {{ menu.badge }}
           </span>
         </RouterLink>
-
       </div>
 
-      <!-- SYSTEM -->
+      <!-- System -->
       <div class="mt-10">
-
         <p
-          class="px-7 pb-4 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500"
+          class="app-text-muted px-7 pb-4 text-xs font-semibold uppercase tracking-[0.25em]"
         >
           System
         </p>
 
         <div class="space-y-4 px-7">
-
-          <div 
+          <div
             v-for="system in systems"
             :key="system.name"
-            class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-white/5"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 transition hover:bg-black/5"
           >
-          
-          <div class="h-2 w-2 rounded-full bg-[#00A884]"></div>
-          
-          <div>
-            
-            <p class="text-sm font-medium">
-              {{ system.name }}
-            </p>
-            
-            <p class="text-xs text-[#00D68F]">
-              {{ system.status }}
-            </p>
-          
-          </div>
-          </div>
+            <div class="h-2 w-2 rounded-full bg-[#00A884]" />
 
+            <div>
+              <p class="app-text text-sm font-medium">
+                {{ system.name }}
+              </p>
+
+              <p class="text-xs text-[#00D68F]">
+                {{ system.status }}
+              </p>
+            </div>
+          </div>
         </div>
-
       </div>
 
       <!-- Divider -->
-      <div class="mx-6 my-8 border-t border-white/10"></div>
+      <div class="app-border mx-6 my-8 border-t" />
 
       <!-- Preferences -->
       <div>
-
         <p
-          class="px-7 pb-4 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500"
+          class="app-text-muted px-7 pb-4 text-xs font-semibold uppercase tracking-[0.25em]"
         >
           Preferences
         </p>
 
         <div class="space-y-2 px-3">
-
           <RouterLink
             to="/settings"
-            class="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-gray-300 transition-all duration-300 hover:bg-white/5 hover:text-white"
+            class="app-text-muted flex w-full items-center gap-4 rounded-xl px-4 py-3 transition-all duration-300 hover:bg-black/5 hover:text-current"
             active-class="bg-[#005B41] text-white"
           >
             <Cog6ToothIcon class="h-6 w-6" />
@@ -176,49 +166,41 @@ const systems = [
           </RouterLink>
 
           <button
-            class="flex w-full items-center gap-4 rounded-xl px-4 py-3 text-gray-300 transition hover:bg-[#005B41]/30 hover:text-white"
+            class="app-text-muted flex w-full items-center gap-4 rounded-xl px-4 py-3 transition hover:bg-[#005B41]/10 hover:text-current"
           >
             <MoonIcon class="h-6 w-6" />
 
-            Dark Mode
+            <span class="font-medium">
+              Dark Mode
+            </span>
           </button>
-
         </div>
-
       </div>
-
     </nav>
 
     <!-- Footer -->
-    <div class="border-t border-white/10 p-5">
-
+    <div class="app-border border-t p-5">
       <div class="flex items-center gap-4">
-
         <div
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-[#005B41] to-[#008170] font-bold shadow-lg"
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-[#005B41] to-[#008170] font-bold text-white shadow-lg"
         >
           HF
         </div>
 
         <div>
-
-          <p class="font-semibold">
+          <p class="app-text font-semibold">
             Havis
           </p>
 
-          <p class="text-sm text-gray-400">
+          <p class="app-text-muted text-sm">
             Administrator
           </p>
 
-          <p class="mt-1 text-xs text-gray-500">
+          <p class="app-text-muted mt-1 text-xs">
             Version 0.1.0
           </p>
-
         </div>
-
       </div>
-
     </div>
-
   </aside>
 </template>
