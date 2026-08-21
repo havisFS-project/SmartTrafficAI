@@ -49,35 +49,20 @@ const cameras = [
 </script>
 
 <template>
+  <div class="space-y-6">
+    <CameraToolbar />
 
-<div class="space-y-6">
-
-    <CameraToolbar/>
-
-    <div
-        class="grid gap-6
-               sm:grid-cols-1
-               md:grid-cols-2
-               xl:grid-cols-3">
-
-        <CameraCard
-
-            v-for="camera in cameras"
-
-            :key="camera.id"
-
-            :title="camera.title"
-
-            :location="camera.location"
-
-            :status="camera.status"
-
-            :fps="camera.fps"
-
-        />
-
-    </div>
-
-</div>
-
+    <section
+      class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+    >
+      <CameraCard
+        v-for="camera in cameras"
+        :key="camera.id"
+        :title="camera.title"
+        :location="camera.location"
+        :status="camera.status"
+        :fps="camera.fps"
+      />
+    </section>
+  </div>
 </template>

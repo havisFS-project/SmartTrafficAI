@@ -1,5 +1,10 @@
 <script setup>
+import { computed, ref } from "vue"
 import VueApexCharts from "vue3-apexcharts"
+
+import { isDarkTheme } from "@/utils/theme"
+
+const themeVersion = ref(0)
 
 const series = [
   {
@@ -8,103 +13,94 @@ const series = [
   },
 ]
 
-const chartOptions = {
+const chartOptions = computed(() => {
+  themeVersion.value
 
-  chart: {
-    toolbar: {
-      show: false,
-    },
-    zoom: {
-      enabled: false,
-    },
-    background: "transparent",
-  },
+  const dark = isDarkTheme()
 
-  theme: {
-    mode: "dark",
-  },
-
-  stroke: {
-    curve: "smooth",
-    width: 4,
-  },
-
-  colors: ["#00A884"],
-
-  xaxis: {
-
-    categories: [
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat",
-      "Sun",
-    ],
-
-    labels: {
-      style: {
-        colors: "#94A3B8",
+  return {
+    chart: {
+      type: "line",
+      toolbar: {
+        show: false,
+      },
+      zoom: {
+        enabled: false,
+      },
+      background: "transparent",
+      animations: {
+        enabled: true,
+        speed: 500,
       },
     },
 
-  },
-
-  yaxis: {
-
-    labels: {
-
-      style: {
-        colors: "#94A3B8",
-      },
-
+    theme: {
+      mode: dark ? "dark" : "light",
     },
 
-  },
+    colors: ["#00A884"],
 
-  grid: {
+    stroke: {
+      curve: "smooth",
+      width: 4,
+    },
 
-    borderColor: "#334155",
+    xaxis: {
+      categories: [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun",
+      ],
 
-  },
+      labels: {
+        style: {
+          colors: dark ? "#94A3B8" : "#64748B",
+        },
+      },
+    },
 
-}
+    yaxis: {
+      labels: {
+        style: {
+          colors: dark ? "#94A3B8" : "#64748B",
+        },
+      },
+    },
+
+    grid: {
+      borderColor: dark ? "#334155" : "#E2E8F0",
+    },
+
+    tooltip: {
+      theme: dark ? "dark" : "light",
+    },
+  }
+})
 </script>
 
 <template>
+  <div
+    class="app-surface app-border rounded-2xl border p-6"
+  >
+    <div class="mb-6">
+      <h2 class="app-text text-xl font-semibold">
+        Traffic Trend
+      </h2>
 
-<div
-class="rounded-2xl border border-white/5 bg-[#232D3F] p-6">
+      <p class="app-text-muted text-sm">
+        Vehicle count in the last 7 days
+      </p>
+    </div>
 
-<div class="mb-6">
-
-<h2 class="text-xl font-semibold text-white">
-
-Traffic Trend
-
-</h2>
-
-<p class="text-sm text-gray-400">
-
-Vehicle count in the last 7 days
-
-</p>
-
-</div>
-
-<VueApexCharts
-
-type="line"
-
-height="330"
-
-:options="chartOptions"
-
-:series="series"
-
-/>
-
-</div>
-
+    <VueApexCharts
+      type="line"
+      height="330"
+      :options="chartOptions"
+      :series="series"
+    />
+  </div>
 </template>

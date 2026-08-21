@@ -5,141 +5,119 @@ import {
 } from "@heroicons/vue/24/outline"
 
 defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
 
-  title: String,
+  location: {
+    type: String,
+    required: true,
+  },
 
-  location: String,
+  status: {
+    type: String,
+    default: "Live",
+  },
 
-  status: String,
-
-  fps: Number,
-
+  fps: {
+    type: Number,
+    default: 0,
+  },
 })
 
+const statusMap = {
+  Live: {
+    text: "text-green-400",
+    background: "bg-green-500/10",
+    dot: "bg-green-500",
+  },
+
+  Offline: {
+    text: "text-red-400",
+    background: "bg-red-500/10",
+    dot: "bg-red-500",
+  },
+
+  Maintenance: {
+    text: "text-yellow-400",
+    background: "bg-yellow-500/10",
+    dot: "bg-yellow-500",
+  },
+}
 </script>
 
 <template>
+  <div
+    class="app-surface app-border group rounded-2xl border p-5 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#008170]/40 hover:shadow-[0_10px_30px_rgba(0,168,132,.12)]"
+  >
+    <!-- Header -->
+    <div class="flex items-start justify-between">
+      <div>
+        <h3 class="app-text text-lg font-semibold">
+          {{ title }}
+        </h3>
 
-<div
-class="rounded-2xl
-border border-white/5
-bg-[#232D3F]
-p-5
-shadow-lg
-transition-all
-duration-300
-hover:border-[#008170]
-hover:-translate-y-1">
+        <p class="app-text-muted text-sm">
+          {{ location }}
+        </p>
+      </div>
 
-<!-- Header -->
+      <div class="rounded-xl bg-[#005B41]/10 p-3">
+        <VideoCameraIcon class="h-6 w-6 text-[#00A884]" />
+      </div>
+    </div>
 
-<div class="flex items-start justify-between">
+    <!-- Preview -->
+    <div
+      class="app-surface-soft app-border mt-5 flex h-52 items-center justify-center rounded-xl border border-dashed"
+    >
+      <div class="text-center">
+        <VideoCameraIcon
+          class="mx-auto mb-4 h-14 w-14 text-gray-500"
+        />
 
-<div>
+        <p class="app-text-muted">
+          Waiting for stream...
+        </p>
+      </div>
+    </div>
 
-<h3 class="text-lg font-semibold text-white">
+    <!-- Footer -->
+    <div class="mt-5 flex items-center justify-between">
+      <!-- Status -->
+      <div
+        class="flex items-center gap-2 rounded-full px-3 py-1"
+        :class="
+          statusMap[status]?.background ?? 'bg-gray-500/10'
+        "
+      >
+        <span
+          class="h-2.5 w-2.5 rounded-full"
+          :class="[
+            statusMap[status]?.dot ?? 'bg-gray-500',
+            status === 'Live' ? 'animate-pulse' : '',
+          ]"
+        />
 
-{{ title }}
+        <span
+          class="text-sm font-medium"
+          :class="
+            statusMap[status]?.text ?? 'text-gray-400'
+          "
+        >
+          {{ status }}
+        </span>
+      </div>
 
-</h3>
+      <!-- FPS -->
+      <div class="flex items-center gap-2">
+        <SignalIcon class="app-text-muted h-5 w-5" />
 
-<p class="text-sm text-gray-400">
-
-{{ location }}
-
-</p>
-
-</div>
-
-<div
-class="rounded-xl
-bg-[#1B2A41]
-p-3">
-
-<VideoCameraIcon
-class="h-6 w-6 text-[#00A884]"/>
-
-</div>
-
-</div>
-
-<!-- Preview -->
-
-<div
-class="mt-5
-flex
-h-52
-items-center
-justify-center
-rounded-xl
-border
-border-dashed
-border-white/10
-bg-[#1B2435]">
-
-<div class="text-center">
-
-<VideoCameraIcon
-class="mx-auto
-mb-4
-h-14
-w-14
-text-gray-500"/>
-
-<p class="text-gray-400">
-
-Waiting for stream...
-
-</p>
-
-</div>
-
-</div>
-
-<!-- Footer -->
-
-<div
-class="mt-5
-flex
-items-center
-justify-between">
-
-<div
-class="flex
-items-center
-gap-2">
-
-<div
-class="h-2.5
-w-2.5
-rounded-full
-bg-green-500
-animate-pulse">
-
-</div>
-
-<span class="text-green-400">
-
-{{ status }}
-
-</span>
-
-</div>
-
-<div
-class="flex
-items-center
-gap-2
-text-gray-400">
-
-<SignalIcon class="h-5 w-5"/>
-
-{{ fps }} FPS
-
-</div>
-
-</div>
-
-</div>
-
+        <span class="app-text-muted text-sm">
+          {{ fps }} FPS
+        </span>
+      </div>
+    </div>
+  </div>
 </template>

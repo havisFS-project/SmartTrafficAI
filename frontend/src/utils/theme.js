@@ -16,6 +16,12 @@ export const setTheme = (theme) => {
     "light",
     theme === "light",
   )
+
+  window.dispatchEvent(
+    new CustomEvent("theme-changed", {
+      detail: theme,
+    }),
+  )
 }
 
 export const toggleTheme = () => {
@@ -29,4 +35,8 @@ export const toggleTheme = () => {
 
 export const initializeTheme = () => {
   setTheme(getTheme())
+}
+
+export const isDarkTheme = () => {
+  return getTheme() === "dark"
 }

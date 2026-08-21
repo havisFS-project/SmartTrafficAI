@@ -7,85 +7,63 @@ import {
 </script>
 
 <template>
+  <section
+    class="app-surface app-border rounded-2xl border p-5"
+  >
+    <!-- Header -->
+    <div class="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="app-text text-2xl font-bold">
+          CCTV Monitoring
+        </h1>
 
-<div class="mb-6 rounded-2xl border border-white/5 bg-[#232D3F] p-5 shadow-lg">
+        <p class="app-text-muted mt-1">
+          Monitor all connected cameras in realtime
+        </p>
+      </div>
 
-  <!-- Header -->
-  <div class="mb-5 flex items-center justify-between">
+      <button
+        class="flex items-center justify-center gap-2 rounded-xl bg-[#008170] px-4 py-3 font-medium text-white transition hover:bg-[#00A884]"
+      >
+        <PlusIcon class="h-5 w-5" />
 
-    <div>
-
-      <h1 class="text-2xl font-bold text-white">
-        CCTV Monitoring
-      </h1>
-
-      <p class="text-gray-400">
-        Monitor all connected cameras in realtime
-      </p>
-
+        Add Camera
+      </button>
     </div>
 
-    <button
-      class="flex items-center gap-2 rounded-xl bg-[#008170] px-4 py-3 text-white transition hover:bg-[#00A884]">
+    <!-- Toolbar -->
+    <div class="flex flex-col gap-3 lg:flex-row">
+      <!-- Search -->
+      <div class="relative flex-1">
+        <MagnifyingGlassIcon
+          class="app-text-muted absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2"
+        />
 
-      <PlusIcon class="h-5 w-5"/>
+        <input
+          type="text"
+          placeholder="Search camera..."
+          class="app-surface-soft app-text app-border w-full rounded-xl border py-3 pl-12 pr-4 outline-none transition focus:border-[#00A884] focus:ring-2 focus:ring-[#008170]/30 placeholder:text-gray-500"
+        />
+      </div>
 
-      Add Camera
+      <!-- Status -->
+      <select
+        class="app-surface-soft app-text app-border rounded-xl border px-4 py-3 outline-none transition focus:border-[#00A884]"
+      >
+        <option>All Status</option>
+        <option>Live</option>
+        <option>Offline</option>
+        <option>Maintenance</option>
+      </select>
 
-    </button>
+      <!-- Refresh -->
+      <button
+        class="app-surface-soft app-text flex items-center justify-center gap-2 rounded-xl px-4 py-3 transition hover:opacity-80"
+      >
+        <ArrowPathIcon class="h-5 w-5" />
 
-  </div>
-
-  <!-- Toolbar -->
-  <div class="flex flex-wrap items-center gap-4">
-
-    <!-- Search -->
-
-    <div class="relative flex-1 min-w-[250px]">
-
-      <MagnifyingGlassIcon
-        class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"/>
-
-      <input
-
-        type="text"
-
-        placeholder="Search camera..."
-
-        class="w-full rounded-xl border border-white/10 bg-[#1B2435] py-3 pl-12 pr-4 text-white outline-none transition focus:border-[#008170]"
-
-      />
-
+        Refresh
+      </button>
     </div>
-
-    <!-- Filter -->
-
-    <select
-      class="rounded-xl border border-white/10 bg-[#1B2435] px-4 py-3 text-white outline-none">
-
-      <option>All Status</option>
-
-      <option>Live</option>
-
-      <option>Offline</option>
-
-      <option>Maintenance</option>
-
-    </select>
-
-    <!-- Refresh -->
-
-    <button
-      class="flex items-center gap-2 rounded-xl bg-[#1B2435] px-4 py-3 text-white transition hover:bg-[#273449]">
-
-      <ArrowPathIcon class="h-5 w-5"/>
-
-      Refresh
-
-    </button>
-
-  </div>
-
-</div>
-
+  </section>
 </template>
