@@ -6,47 +6,39 @@ import {
 </script>
 
 <template>
+  <section
+    class="app-surface app-border rounded-3xl border p-7"
+  >
+    <div
+      class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between"
+    >
+      <div>
+        <h1 class="app-text text-4xl font-bold">
+          Analytics Dashboard
+        </h1>
 
-<div class="mb-6 rounded-2xl border border-white/5 bg-[#232D3F] p-6 shadow-lg">
+        <p class="app-text-muted mt-2 text-lg">
+          AI Traffic Insights & Historical Analysis
+        </p>
+      </div>
 
-  <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex gap-3">
+        <button
+          class="app-surface-soft app-text flex items-center gap-2 rounded-xl px-5 py-3 transition hover:opacity-80"
+        >
+          <CalendarDaysIcon class="h-5 w-5" />
 
-    <div>
+          Last 24 Hours
+        </button>
 
-      <h1 class="text-4xl font-bold text-white">
-        Analytics Dashboard
-      </h1>
+        <button
+          class="flex items-center gap-2 rounded-xl bg-[#008170] px-5 py-3 font-medium text-white transition hover:bg-[#00A884]"
+        >
+          <ArrowDownTrayIcon class="h-5 w-5" />
 
-      <p class="mt-2 text-gray-400">
-        AI Traffic Insights & Historical Analysis
-      </p>
-
+          Export
+        </button>
+      </div>
     </div>
-
-    <div class="flex items-center gap-3">
-
-      <button
-        class="flex items-center gap-2 rounded-xl bg-[#1B2435] px-4 py-3 text-white transition hover:bg-[#273449]">
-
-        <CalendarDaysIcon class="h-5 w-5"/>
-
-        Last 24 Hours
-
-      </button>
-
-      <button
-        class="flex items-center gap-2 rounded-xl bg-[#008170] px-4 py-3 text-white transition hover:bg-[#00A884]">
-
-        <ArrowDownTrayIcon class="h-5 w-5"/>
-
-        Export
-
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
+  </section>
 </template>

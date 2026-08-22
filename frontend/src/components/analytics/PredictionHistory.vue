@@ -1,156 +1,78 @@
 <script setup>
-
 const predictions = [
-
-{
-
-time:"09:45",
-
-location:"Highway KM 12",
-
-status:"Heavy Traffic",
-
-confidence:"98%",
-
-color:"bg-red-500",
-
-},
-
-{
-
-time:"09:30",
-
-location:"City Center",
-
-status:"Normal",
-
-confidence:"96%",
-
-color:"bg-green-500",
-
-},
-
-{
-
-time:"09:10",
-
-location:"Airport Road",
-
-status:"Low Traffic",
-
-confidence:"95%",
-
-color:"bg-blue-500",
-
-},
-
+  {
+    time: "09:45",
+    location: "Highway KM 12",
+    status: "Heavy Traffic",
+    confidence: "98%",
+    statusClass: "bg-red-500/10 text-red-400",
+  },
+  {
+    time: "09:30",
+    location: "City Center",
+    status: "Normal",
+    confidence: "96%",
+    statusClass: "bg-green-500/10 text-green-400",
+  },
+  {
+    time: "09:10",
+    location: "Airport Road",
+    status: "Low Traffic",
+    confidence: "95%",
+    statusClass: "bg-blue-500/10 text-blue-400",
+  },
 ]
-
 </script>
 
 <template>
+  <div
+    class="app-surface app-border rounded-2xl border p-6 shadow-lg"
+  >
+    <div class="mb-6">
+      <h2 class="app-text text-xl font-semibold">
+        AI Prediction History
+      </h2>
 
-<div
-class="rounded-2xl
-border
-border-white/5
-bg-[#232D3F]
-p-6">
+      <p class="app-text-muted text-sm">
+        Latest AI traffic predictions
+      </p>
+    </div>
 
-<h2
-class="text-xl
-font-semibold
-text-white">
+    <div class="space-y-4">
+      <div
+        v-for="prediction in predictions"
+        :key="prediction.time"
+        class="app-surface-soft rounded-xl p-4 transition hover:opacity-90"
+      >
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="app-text font-medium">
+              {{ prediction.location }}
+            </p>
 
-AI Prediction History
+            <p class="app-text-muted text-sm">
+              {{ prediction.time }}
+            </p>
+          </div>
 
-</h2>
+          <span
+            class="rounded-full px-3 py-1 text-xs font-semibold"
+            :class="prediction.statusClass"
+          >
+            {{ prediction.status }}
+          </span>
+        </div>
 
-<p
-class="mb-6
-text-sm
-text-gray-400">
+        <div class="mt-3">
+          <span class="app-text-muted text-sm">
+            Confidence
+          </span>
 
-Latest AI traffic predictions
-
-</p>
-
-<div
-class="space-y-4">
-
-<div
-
-v-for="item in predictions"
-
-:key="item.time"
-
-class="rounded-xl
-bg-[#1B2435]
-p-4">
-
-<div
-class="flex
-items-center
-justify-between">
-
-<div>
-
-<p
-class="font-semibold
-text-white">
-
-{{ item.location }}
-
-</p>
-
-<p
-class="text-sm
-text-gray-400">
-
-{{ item.time }}
-
-</p>
-
-</div>
-
-<span
-:class="item.color"
-
-class="rounded-full
-px-3
-py-1
-text-xs
-font-semibold
-text-white">
-
-{{ item.status }}
-
-</span>
-
-</div>
-
-<div
-class="mt-3
-text-sm
-text-gray-400">
-
-Confidence
-
-<span
-class="ml-2
-font-semibold
-text-[#00A884]">
-
-{{ item.confidence }}
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+          <span class="ml-2 text-sm font-semibold text-[#00A884]">
+            {{ prediction.confidence }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

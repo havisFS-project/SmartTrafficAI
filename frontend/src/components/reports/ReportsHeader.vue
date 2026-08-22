@@ -5,27 +5,31 @@ import ReportsExport from "./ReportsExport.vue"
 
 <template>
   <section
-    class="flex flex-col gap-6 rounded-3xl border border-white/5 bg-[#232D3F] p-7 lg:flex-row lg:items-center lg:justify-between"
+    class="app-surface app-border rounded-3xl border p-7"
   >
-    <div>
-      <h1 class="text-4xl font-bold text-white">
-        Reports
-      </h1>
+    <div
+      class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between"
+    >
+      <div>
+        <h1 class="app-text text-4xl font-bold">
+          Reports
+        </h1>
 
-      <p class="mt-2 text-lg text-gray-400">
-        AI Traffic Reports & Historical Records
-      </p>
-    </div>
+        <p class="app-text-muted mt-2 text-lg">
+          AI Traffic Reports & Historical Records
+        </p>
+      </div>
 
-    <div class="flex gap-4">
-      <button
-        class="flex items-center gap-3 rounded-2xl bg-[#1B2435] px-6 py-3 text-white transition hover:bg-[#2B3548]"
-      >
-        <DocumentTextIcon class="h-5 w-5" />
-        Generate Report
-      </button>
+      <div class="flex flex-wrap gap-3">
+        <button
+          class="app-surface-soft app-text flex items-center gap-3 rounded-xl px-5 py-3 transition hover:opacity-80"
+        >
+          <DocumentTextIcon class="h-5 w-5" />
+          Generate Report
+        </button>
 
-      <ReportsExport />
+        <ReportsExport />
+      </div>
     </div>
   </section>
 </template>

@@ -34,15 +34,13 @@ import {
 
     <!-- Stat Cards -->
 
-    <section
-      class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
-    >
+    <section class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
       <AnalyticsStatCard
         title="Vehicles"
         value="15,284"
         subtitle="+8% Today"
         :icon="TruckIcon"
-        color="bg-green-500/10 text-green-400"
+        color="green"
       />
 
       <AnalyticsStatCard
@@ -50,7 +48,7 @@ import {
         value="48 km/h"
         subtitle="Realtime"
         :icon="BoltIcon"
-        color="bg-blue-500/10 text-blue-400"
+        color="blue"
       />
 
       <AnalyticsStatCard
@@ -58,7 +56,7 @@ import {
         value="98.7%"
         subtitle="YOLO v11"
         :icon="CpuChipIcon"
-        color="bg-cyan-500/10 text-cyan-400"
+        color="cyan"
       />
 
       <AnalyticsStatCard
@@ -66,7 +64,7 @@ import {
         value="Medium"
         subtitle="Current"
         :icon="SignalIcon"
-        color="bg-yellow-500/10 text-yellow-400"
+        color="yellow"
       />
     </section>
 

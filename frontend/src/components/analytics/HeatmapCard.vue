@@ -8,31 +8,32 @@ const hotspots = [
   {
     location: "Highway KM 12",
     status: "Heavy",
-    color: "bg-red-500",
+    color: "bg-red-500/10 text-red-400",
   },
   {
     location: "City Center",
     status: "Medium",
-    color: "bg-yellow-500",
+    color: "bg-yellow-500/10 text-yellow-400",
   },
   {
     location: "Airport Road",
     status: "Normal",
-    color: "bg-green-500",
+    color: "bg-green-500/10 text-green-400",
   },
 ]
 </script>
 
 <template>
-  <div class="rounded-2xl border border-white/5 bg-[#232D3F] p-6">
-
+  <div
+    class="app-surface app-border rounded-2xl border p-6 shadow-lg"
+  >
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h2 class="text-xl font-semibold text-white">
+        <h2 class="app-text text-xl font-semibold">
           Traffic Heatmap
         </h2>
 
-        <p class="text-sm text-gray-400">
+        <p class="app-text-muted text-sm">
           Congestion hotspot overview
         </p>
       </div>
@@ -41,54 +42,48 @@ const hotspots = [
     </div>
 
     <!-- Map Preview -->
-
     <div
-      class="flex h-56 items-center justify-center rounded-xl border border-dashed border-white/10 bg-[#1B2435]"
+      class="app-surface-soft app-border flex h-56 items-center justify-center rounded-xl border border-dashed"
     >
       <div class="text-center">
+        <MapPinIcon
+          class="mx-auto mb-3 h-10 w-10 text-[#00A884]"
+        />
 
-        <MapPinIcon class="mx-auto mb-3 h-10 w-10 text-[#00A884]" />
-
-        <p class="font-medium text-white">
+        <p class="app-text font-medium">
           Interactive Map
         </p>
 
-        <p class="text-sm text-gray-400">
-          Google Maps / Leaflet Coming Soon
+        <p class="app-text-muted text-sm">
+          Leaflet Map Coming Soon
         </p>
-
       </div>
     </div>
 
-    <!-- Hotspot -->
-
+    <!-- Hotspots -->
     <div class="mt-6 space-y-3">
-
       <div
         v-for="spot in hotspots"
         :key="spot.location"
-        class="flex items-center justify-between rounded-lg bg-[#1B2435] px-4 py-3"
+        class="app-surface-soft flex items-center justify-between rounded-xl px-4 py-3"
       >
         <div>
-          <p class="font-medium text-white">
+          <p class="app-text font-medium">
             {{ spot.location }}
           </p>
 
-          <p class="text-sm text-gray-400">
+          <p class="app-text-muted text-sm">
             Traffic Hotspot
           </p>
         </div>
 
         <span
+          class="rounded-full px-3 py-1 text-xs font-semibold"
           :class="spot.color"
-          class="rounded-full px-3 py-1 text-xs font-semibold text-white"
         >
           {{ spot.status }}
         </span>
-
       </div>
-
     </div>
-
   </div>
 </template>

@@ -11,15 +11,6 @@ import ReportDetailModal from "./ReportDetailModal.vue"
 
 const selectedReport = ref(null)
 
-const showDetail = (report) => {
-  selectedReport.value = report
-}
-
-const closeDetail = () => {
-  selectedReport.value = null
-}
-
-
 const reports = [
   {
     id: "TR-0001",
@@ -54,51 +45,82 @@ const reports = [
     vehicles: 128,
   },
 ]
+
+const statusClasses = {
+  "Heavy Traffic": "bg-red-500/10 text-red-400",
+  Medium: "bg-yellow-500/10 text-yellow-400",
+  Normal: "bg-green-500/10 text-green-400",
+  "Low Traffic": "bg-blue-500/10 text-blue-400",
+}
+
+const showDetail = (report) => {
+  selectedReport.value = report
+}
+
+const closeDetail = () => {
+  selectedReport.value = null
+}
 </script>
 
 <template>
-  <section class="overflow-hidden rounded-2xl border border-white/5 bg-[#232D3F]">
-    <div class="border-b border-white/5 px-6 py-5">
-      <div>
-        <h2 class="text-xl font-semibold text-white">
-          Traffic Reports
-        </h2>
+  <section
+    class="app-surface app-border overflow-hidden rounded-2xl border"
+  >
+    <!-- Header -->
+    <div class="app-border border-b px-6 py-5">
+      <h2 class="app-text text-xl font-semibold">
+        Traffic Reports
+      </h2>
 
-        <p class="mt-1 text-sm text-gray-400">
-          Historical traffic analysis records
-        </p>
-      </div>
+      <p class="app-text-muted mt-1 text-sm">
+        Historical traffic analysis records
+      </p>
     </div>
 
+    <!-- Table -->
     <div class="overflow-x-auto">
       <table class="w-full min-w-[900px] text-left">
-        <thead class="bg-[#1B2435]">
+        <thead class="app-surface-soft">
           <tr>
-            <th class="px-6 py-4 text-sm font-semibold text-gray-400">
+            <th
+              class="app-text-muted px-6 py-4 text-xs font-semibold uppercase tracking-wider"
+            >
               Report ID
             </th>
 
-            <th class="px-6 py-4 text-sm font-semibold text-gray-400">
+            <th
+              class="app-text-muted px-6 py-4 text-xs font-semibold uppercase tracking-wider"
+            >
               Date
             </th>
 
-            <th class="px-6 py-4 text-sm font-semibold text-gray-400">
+            <th
+              class="app-text-muted px-6 py-4 text-xs font-semibold uppercase tracking-wider"
+            >
               Camera
             </th>
 
-            <th class="px-6 py-4 text-sm font-semibold text-gray-400">
+            <th
+              class="app-text-muted px-6 py-4 text-xs font-semibold uppercase tracking-wider"
+            >
               Location
             </th>
 
-            <th class="px-6 py-4 text-sm font-semibold text-gray-400">
+            <th
+              class="app-text-muted px-6 py-4 text-xs font-semibold uppercase tracking-wider"
+            >
               Status
             </th>
 
-            <th class="px-6 py-4 text-sm font-semibold text-gray-400">
+            <th
+              class="app-text-muted px-6 py-4 text-xs font-semibold uppercase tracking-wider"
+            >
               Vehicles
             </th>
 
-            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-400">
+            <th
+              class="app-text-muted px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider"
+            >
               Actions
             </th>
           </tr>
@@ -108,62 +130,52 @@ const reports = [
           <tr
             v-for="report in reports"
             :key="report.id"
-            class="border-t border-white/5 transition hover:bg-white/[0.03]"
+            class="app-border border-t transition hover:bg-black/[0.03] dark:hover:bg-white/[0.03]"
           >
-            <td class="px-6 py-4 font-medium text-white">
+            <td class="app-text px-6 py-4 font-medium">
               {{ report.id }}
             </td>
 
-            <td class="px-6 py-4 text-sm text-gray-400">
+            <td class="app-text-muted px-6 py-4 text-sm">
               {{ report.date }}
             </td>
 
-            <td class="px-6 py-4 text-sm text-gray-300">
+            <td class="app-text px-6 py-4 text-sm">
               {{ report.camera }}
             </td>
 
-            <td class="px-6 py-4 text-sm text-gray-300">
+            <td class="app-text px-6 py-4 text-sm">
               {{ report.location }}
             </td>
 
             <td class="px-6 py-4">
               <span
                 class="rounded-full px-3 py-1 text-xs font-semibold"
-                :class="{
-                  'bg-red-500/10 text-red-400':
-                    report.status === 'Heavy Traffic',
-
-                  'bg-yellow-500/10 text-yellow-400':
-                    report.status === 'Medium',
-
-                  'bg-green-500/10 text-green-400':
-                    report.status === 'Normal',
-
-                  'bg-blue-500/10 text-blue-400':
-                    report.status === 'Low Traffic',
-                }"
+                :class="statusClasses[report.status]"
               >
                 {{ report.status }}
               </span>
             </td>
 
-            <td class="px-6 py-4 font-medium text-white">
+            <td class="app-text px-6 py-4 font-medium">
               {{ report.vehicles }}
             </td>
 
             <td class="px-6 py-4">
               <div class="flex justify-end gap-2">
                 <button
-                  class="rounded-lg p-2 text-gray-400 transition hover:bg-[#008170]/10 hover:text-[#00A884]"
+                  type="button"
                   title="View report"
+                  class="app-text-muted rounded-lg p-2 transition hover:bg-[#008170]/10 hover:text-[#00A884]"
                   @click="showDetail(report)"
                 >
                   <EyeIcon class="h-5 w-5" />
                 </button>
 
                 <button
-                  class="rounded-lg p-2 text-gray-400 transition hover:bg-red-500/10 hover:text-red-400"
+                  type="button"
                   title="Delete report"
+                  class="app-text-muted rounded-lg p-2 transition hover:bg-red-500/10 hover:text-red-400"
                 >
                   <TrashIcon class="h-5 w-5" />
                 </button>
@@ -173,14 +185,18 @@ const reports = [
         </tbody>
       </table>
     </div>
+
+    <!-- Pagination -->
     <ReportsPagination
-        :current-page="1"
-        :total-pages="5"
+      :current-page="1"
+      :total-pages="5"
     />
+
+    <!-- Detail Modal -->
     <ReportDetailModal
-        :open="selectedReport !== null"
-        :report="selectedReport"
-        @close="closeDetail"
+      :open="selectedReport !== null"
+      :report="selectedReport"
+      @close="closeDetail"
     />
   </section>
 </template>

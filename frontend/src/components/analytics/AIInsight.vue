@@ -14,16 +14,17 @@ const recommendations = [
 </script>
 
 <template>
-  <div class="rounded-2xl border border-white/5 bg-[#232D3F] p-6">
+  <div
+    class="app-surface app-border rounded-2xl border p-6 shadow-lg"
+  >
     <!-- Header -->
-
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h2 class="text-2xl font-bold text-white">
+        <h2 class="app-text text-xl font-semibold">
           AI Insight
         </h2>
 
-        <p class="text-sm text-gray-400">
+        <p class="app-text-muted text-sm">
           Realtime traffic intelligence
         </p>
       </div>
@@ -31,54 +32,64 @@ const recommendations = [
       <SparklesIcon class="h-7 w-7 text-[#00A884]" />
     </div>
 
-    <!-- Main Prediction -->
+    <!-- Prediction -->
+    <div class="app-surface-soft rounded-xl p-5">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="app-text text-lg font-semibold">
+            Traffic is predicted to increase
+          </p>
 
-    <div class="rounded-xl bg-[#1B2435] p-5">
-      <h3 class="text-lg font-semibold text-white">
-        Traffic is predicted to increase
-      </h3>
+          <p class="app-text-muted mt-2">
+            Expected between
+            <span class="app-text font-medium">
+              17:00 - 18:00
+            </span>
+          </p>
+        </div>
 
-      <p class="mt-2 text-gray-400">
-        Expected between
-        <span class="font-medium text-white">
-          17:00 - 18:00
+        <span
+          class="rounded-full bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-400"
+        >
+          High Risk
         </span>
-      </p>
+      </div>
 
       <!-- Recommendation -->
-
       <div class="mt-6">
-        <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
+        <p
+          class="app-text-muted mb-3 text-xs font-semibold uppercase tracking-wider"
+        >
           Recommendation
         </p>
 
         <div class="space-y-3">
           <div
-            v-for="item in recommendations"
-            :key="item"
+            v-for="recommendation in recommendations"
+            :key="recommendation"
             class="flex items-center gap-3"
           >
             <CheckCircleIcon class="h-5 w-5 text-[#00A884]" />
 
-            <span class="text-gray-300">
-              {{ item }}
+            <span class="app-text-muted">
+              {{ recommendation }}
             </span>
           </div>
         </div>
       </div>
 
       <!-- Footer -->
-
-      <div class="mt-8 flex items-center justify-between border-t border-white/10 pt-4">
-
+      <div
+        class="app-border mt-6 flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center sm:justify-between"
+      >
         <div class="flex items-center gap-2">
           <LightBulbIcon class="h-5 w-5 text-yellow-400" />
 
-          <span class="text-sm text-gray-300">
+          <span class="app-text-muted text-sm">
             Confidence
           </span>
 
-          <span class="font-bold text-[#00A884]">
+          <span class="font-semibold text-[#00A884]">
             98%
           </span>
         </div>
@@ -86,11 +97,10 @@ const recommendations = [
         <div class="flex items-center gap-2">
           <ClockIcon class="h-5 w-5 text-[#00A884]" />
 
-          <span class="text-sm text-gray-400">
+          <span class="app-text-muted text-sm">
             Updated 21:40
           </span>
         </div>
-
       </div>
     </div>
   </div>

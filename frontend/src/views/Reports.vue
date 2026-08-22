@@ -27,7 +27,7 @@ import {
         value="1,248"
         subtitle="This month"
         :icon="DocumentTextIcon"
-        color="bg-cyan-500/10 text-cyan-400"
+        color="cyan"
       />
 
       <ReportsSummaryCard
@@ -35,7 +35,7 @@ import {
         value="1,102"
         subtitle="88% completed"
         :icon="CheckCircleIcon"
-        color="bg-green-500/10 text-green-400"
+        color="green"
       />
 
       <ReportsSummaryCard
@@ -43,7 +43,7 @@ import {
         value="18"
         subtitle="Need attention"
         :icon="ExclamationTriangleIcon"
-        color="bg-red-500/10 text-red-400"
+        color="red"
       />
 
       <ReportsSummaryCard
@@ -51,7 +51,7 @@ import {
         value="128"
         subtitle="Waiting review"
         :icon="ClockIcon"
-        color="bg-yellow-500/10 text-yellow-400"
+        color="yellow"
       />
     </section>
 

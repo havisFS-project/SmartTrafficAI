@@ -6,6 +6,7 @@ defineProps({
     type: Object,
     default: null,
   },
+
   open: {
     type: Boolean,
     default: false,
@@ -25,28 +26,29 @@ const emit = defineEmits(["close"])
     >
       <div
         v-if="open && report"
-        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
         @click.self="emit('close')"
       >
         <div
-          class="w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-[#232D3F] shadow-2xl"
+          class="app-surface app-border w-full max-w-2xl overflow-hidden rounded-2xl border shadow-2xl"
         >
           <!-- Header -->
           <div
-            class="flex items-center justify-between border-b border-white/5 px-6 py-5"
+            class="app-border flex items-center justify-between border-b px-6 py-5"
           >
             <div>
-              <h2 class="text-xl font-semibold text-white">
+              <h2 class="app-text text-xl font-semibold">
                 Report Details
               </h2>
 
-              <p class="mt-1 text-sm text-gray-400">
+              <p class="app-text-muted mt-1 text-sm">
                 {{ report.id }}
               </p>
             </div>
 
             <button
-              class="rounded-xl p-2 text-gray-400 transition hover:bg-white/5 hover:text-white"
+              type="button"
+              class="app-text-muted rounded-xl p-2 transition hover:bg-black/5 hover:text-current dark:hover:bg-white/5"
               @click="emit('close')"
             >
               <XMarkIcon class="h-6 w-6" />
@@ -56,53 +58,53 @@ const emit = defineEmits(["close"])
           <!-- Content -->
           <div class="space-y-6 p-6">
             <!-- Basic Information -->
-            <div class="grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-5 sm:grid-cols-2">
               <div>
-                <p class="text-xs uppercase tracking-wider text-gray-500">
+                <p class="app-text-muted text-xs uppercase tracking-wider">
                   Camera
                 </p>
 
-                <p class="mt-1 font-medium text-white">
+                <p class="app-text mt-1 font-medium">
                   {{ report.camera }}
                 </p>
               </div>
 
               <div>
-                <p class="text-xs uppercase tracking-wider text-gray-500">
+                <p class="app-text-muted text-xs uppercase tracking-wider">
                   Location
                 </p>
 
-                <p class="mt-1 font-medium text-white">
+                <p class="app-text mt-1 font-medium">
                   {{ report.location }}
                 </p>
               </div>
 
               <div>
-                <p class="text-xs uppercase tracking-wider text-gray-500">
+                <p class="app-text-muted text-xs uppercase tracking-wider">
                   Date
                 </p>
 
-                <p class="mt-1 text-gray-300">
+                <p class="app-text mt-1">
                   {{ report.date }}
                 </p>
               </div>
 
               <div>
-                <p class="text-xs uppercase tracking-wider text-gray-500">
+                <p class="app-text-muted text-xs uppercase tracking-wider">
                   Vehicles
                 </p>
 
-                <p class="mt-1 text-gray-300">
+                <p class="app-text mt-1 font-medium">
                   {{ report.vehicles }}
                 </p>
               </div>
             </div>
 
             <!-- Traffic Status -->
-            <div class="rounded-xl bg-[#1B2435] p-5">
-              <div class="flex items-center justify-between">
+            <div class="app-surface-soft rounded-xl p-5">
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p class="text-sm text-gray-400">
+                  <p class="app-text-muted text-sm">
                     Traffic Status
                   </p>
 
@@ -126,8 +128,8 @@ const emit = defineEmits(["close"])
                   </span>
                 </div>
 
-                <div class="text-right">
-                  <p class="text-sm text-gray-400">
+                <div class="sm:text-right">
+                  <p class="app-text-muted text-sm">
                     AI Confidence
                   </p>
 
@@ -140,29 +142,51 @@ const emit = defineEmits(["close"])
 
             <!-- Vehicle Breakdown -->
             <div>
-              <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400">
+              <h3
+                class="app-text-muted mb-4 text-xs font-semibold uppercase tracking-wider"
+              >
                 Vehicle Breakdown
               </h3>
 
               <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div class="rounded-xl bg-[#1B2435] p-4">
-                  <p class="text-sm text-gray-500">Cars</p>
-                  <p class="mt-1 text-xl font-bold text-white">82</p>
+                <div class="app-surface-soft rounded-xl p-4">
+                  <p class="app-text-muted text-sm">
+                    Cars
+                  </p>
+
+                  <p class="app-text mt-1 text-xl font-bold">
+                    82
+                  </p>
                 </div>
 
-                <div class="rounded-xl bg-[#1B2435] p-4">
-                  <p class="text-sm text-gray-500">Motorcycles</p>
-                  <p class="mt-1 text-xl font-bold text-white">71</p>
+                <div class="app-surface-soft rounded-xl p-4">
+                  <p class="app-text-muted text-sm">
+                    Motorcycles
+                  </p>
+
+                  <p class="app-text mt-1 text-xl font-bold">
+                    71
+                  </p>
                 </div>
 
-                <div class="rounded-xl bg-[#1B2435] p-4">
-                  <p class="text-sm text-gray-500">Buses</p>
-                  <p class="mt-1 text-xl font-bold text-white">12</p>
+                <div class="app-surface-soft rounded-xl p-4">
+                  <p class="app-text-muted text-sm">
+                    Buses
+                  </p>
+
+                  <p class="app-text mt-1 text-xl font-bold">
+                    12
+                  </p>
                 </div>
 
-                <div class="rounded-xl bg-[#1B2435] p-4">
-                  <p class="text-sm text-gray-500">Trucks</p>
-                  <p class="mt-1 text-xl font-bold text-white">19</p>
+                <div class="app-surface-soft rounded-xl p-4">
+                  <p class="app-text-muted text-sm">
+                    Trucks
+                  </p>
+
+                  <p class="app-text mt-1 text-xl font-bold">
+                    19
+                  </p>
                 </div>
               </div>
             </div>

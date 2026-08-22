@@ -9,6 +9,7 @@ defineProps({
     type: Number,
     default: 1,
   },
+
   totalPages: {
     type: Number,
     default: 5,
@@ -24,21 +25,22 @@ const goToPage = (page) => {
 
 <template>
   <div
-    class="flex flex-col gap-4 border-t border-white/5 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
+    class="app-border flex flex-col gap-4 border-t px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
   >
-    <p class="text-sm text-gray-400">
+    <p class="app-text-muted text-sm">
       Showing
-      <span class="font-medium text-white">1</span>
+      <span class="app-text font-medium">1</span>
       to
-      <span class="font-medium text-white">10</span>
+      <span class="app-text font-medium">10</span>
       of
-      <span class="font-medium text-white">248</span>
+      <span class="app-text font-medium">248</span>
       reports
     </p>
 
     <div class="flex items-center gap-2">
       <button
-        class="rounded-lg border border-white/10 bg-[#1B2435] p-2 text-gray-400 transition hover:bg-[#2B3548] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        type="button"
+        class="app-surface-soft app-text-muted rounded-lg p-2 transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
         :disabled="currentPage === 1"
         @click="goToPage(currentPage - 1)"
       >
@@ -48,11 +50,12 @@ const goToPage = (page) => {
       <button
         v-for="page in totalPages"
         :key="page"
+        type="button"
         class="h-9 min-w-9 rounded-lg px-3 text-sm font-medium transition"
         :class="
           page === currentPage
             ? 'bg-[#008170] text-white'
-            : 'bg-[#1B2435] text-gray-400 hover:bg-[#2B3548] hover:text-white'
+            : 'app-surface-soft app-text-muted hover:opacity-80'
         "
         @click="goToPage(page)"
       >
@@ -60,7 +63,8 @@ const goToPage = (page) => {
       </button>
 
       <button
-        class="rounded-lg border border-white/10 bg-[#1B2435] p-2 text-gray-400 transition hover:bg-[#2B3548] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        type="button"
+        class="app-surface-soft app-text-muted rounded-lg p-2 transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
         :disabled="currentPage === totalPages"
         @click="goToPage(currentPage + 1)"
       >
