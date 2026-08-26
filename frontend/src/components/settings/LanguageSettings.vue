@@ -23,14 +23,14 @@ const languages = [
 
 <template>
   <section
-    class="rounded-2xl border border-white/5 bg-[#232D3F] p-6"
+    class="app-surface app-border rounded-2xl border p-6"
   >
     <div class="mb-6">
-      <h2 class="text-xl font-semibold text-white">
+      <h2 class="app-text text-xl font-semibold">
         Language
       </h2>
 
-      <p class="mt-1 text-sm text-gray-400">
+      <p class="app-text-muted mt-1 text-sm">
         Choose your preferred application language
       </p>
     </div>
@@ -44,21 +44,21 @@ const languages = [
         :class="
           selectedLanguage === language.code
             ? 'border-[#008170] bg-[#005B41]/10'
-            : 'border-white/10 bg-[#1B2435] hover:border-white/20'
+            : 'app-surface-soft app-border hover:opacity-90'
         "
         @click="selectedLanguage = language.code"
       >
         <div class="flex items-center gap-4">
-          <div class="rounded-xl bg-[#005B41]/20 p-3">
+          <div class="rounded-xl bg-[#005B41]/10 p-3">
             <LanguageIcon class="h-6 w-6 text-[#00A884]" />
           </div>
 
           <div>
-            <h3 class="font-medium text-white">
+            <h3 class="app-text font-medium">
               {{ language.name }}
             </h3>
 
-            <p class="mt-1 text-sm text-gray-400">
+            <p class="app-text-muted mt-1 text-sm">
               {{ language.description }}
             </p>
           </div>

@@ -49,28 +49,26 @@ const notifications = ref([
 
 <template>
   <section
-    class="rounded-2xl border border-white/5 bg-[#232D3F] p-6"
+    class="app-surface app-border rounded-2xl border p-6"
   >
     <div class="mb-6">
-      <h2 class="text-xl font-semibold text-white">
+      <h2 class="app-text text-xl font-semibold">
         Notifications
       </h2>
 
-      <p class="mt-1 text-sm text-gray-400">
+      <p class="app-text-muted mt-1 text-sm">
         Choose which notifications you want to receive
       </p>
     </div>
 
-    <div class="divide-y divide-white/5">
+    <div class="divide-y divide-black/10 dark:divide-white/5">
       <div
         v-for="notification in notifications"
         :key="notification.id"
         class="flex items-center justify-between gap-4 py-5 first:pt-0 last:pb-0"
       >
         <div class="flex items-center gap-4">
-          <div
-            class="rounded-xl bg-[#005B41]/20 p-3"
-          >
+          <div class="rounded-xl bg-[#005B41]/10 p-3">
             <component
               :is="notification.icon"
               class="h-6 w-6 text-[#00A884]"
@@ -78,37 +76,37 @@ const notifications = ref([
           </div>
 
           <div>
-            <h3 class="font-medium text-white">
+            <h3 class="app-text font-medium">
               {{ notification.title }}
             </h3>
 
-            <p class="mt-1 text-sm text-gray-400">
+            <p class="app-text-muted mt-1 text-sm">
               {{ notification.description }}
             </p>
           </div>
         </div>
 
         <button
-          type="button"
-          role="switch"
-          :aria-checked="notification.enabled"
-          class="relative h-7 w-12 shrink-0 rounded-full p-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#008170]/40"
-          :class="
-            notification.enabled
-              ? 'bg-[#008170]'
-              : 'bg-[#475569]'
-          "
-          @click="notification.enabled = !notification.enabled"
-        >
-          <span
-            class="block h-5 w-5 rounded-full bg-white shadow-md transition-transform duration-200"
-            :class="
-              notification.enabled
-                ? 'translate-x-5'
-                : 'translate-x-0'
-            "
-          />
-        </button>
+  type="button"
+  role="switch"
+  :aria-checked="notification.enabled"
+  class="relative h-7 w-12 shrink-0 rounded-full p-1 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#008170]/30"
+  :class="
+    notification.enabled
+      ? 'bg-[#008170]'
+      : 'app-toggle-off'
+  "
+  @click="notification.enabled = !notification.enabled"
+>
+  <span
+    class="block h-5 w-5 rounded-full bg-white shadow-md transition-transform duration-200"
+    :class="
+      notification.enabled
+        ? 'translate-x-5'
+        : 'translate-x-0'
+    "
+  />
+</button>
       </div>
     </div>
   </section>

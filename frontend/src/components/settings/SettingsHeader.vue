@@ -4,21 +4,19 @@ import { Cog6ToothIcon } from "@heroicons/vue/24/outline"
 
 <template>
   <section
-    class="flex items-center justify-between rounded-3xl border border-white/5 bg-[#232D3F] p-7"
+    class="app-surface app-border flex items-center justify-between rounded-3xl border p-7"
   >
     <div>
-      <h1 class="text-4xl font-bold text-white">
+      <h1 class="app-text text-4xl font-bold">
         Settings
       </h1>
 
-      <p class="mt-2 text-lg text-gray-400">
+      <p class="app-text-muted mt-2 text-lg">
         Manage your SmartTrafficAI preferences
       </p>
     </div>
 
-    <div
-      class="hidden rounded-2xl bg-[#005B41]/20 p-4 sm:block"
-    >
+    <div class="rounded-2xl bg-[#005B41]/10 p-4">
       <Cog6ToothIcon class="h-8 w-8 text-[#00A884]" />
     </div>
   </section>

@@ -1,4 +1,6 @@
 <script setup>
+import { toggleTheme } from "@/utils/theme"
+
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
@@ -62,11 +64,10 @@ import { BaseInput } from "@/components/ui"
 
       <!-- Dark Mode -->
       <button
-        class="rounded-xl p-2 transition duration-300 hover:scale-105 hover:bg-white/5"
+        type="button"
+        @click="toggleTheme"
       >
-        <MoonIcon
-          class="h-6 w-6 text-gray-300"
-        />
+        <MoonIcon class="h-6 w-6 text-gray-300" />
       </button>
 
       <!-- User -->

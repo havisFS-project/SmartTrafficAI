@@ -21,14 +21,14 @@ const changeTheme = (selectedTheme) => {
 
 <template>
   <section
-    class="rounded-2xl border border-white/5 bg-[#232D3F] p-6"
+    class="app-surface app-border rounded-2xl border p-6"
   >
     <div class="mb-6">
-      <h2 class="text-xl font-semibold text-white">
+      <h2 class="app-text text-xl font-semibold">
         Appearance
       </h2>
 
-      <p class="mt-1 text-sm text-gray-400">
+      <p class="app-text-muted mt-1 text-sm">
         Customize how SmartTrafficAI looks
       </p>
     </div>
@@ -36,18 +36,17 @@ const changeTheme = (selectedTheme) => {
     <div class="grid gap-4 md:grid-cols-2">
       <!-- Dark Mode -->
       <button
+        type="button"
         class="relative rounded-2xl border p-5 text-left transition-all duration-300"
         :class="
           theme === 'dark'
             ? 'border-[#008170] bg-[#005B41]/10'
-            : 'border-white/10 bg-[#1B2435] hover:border-white/20'
+            : 'app-surface-soft app-border hover:opacity-90'
         "
         @click="changeTheme('dark')"
       >
         <div class="flex items-start justify-between">
-          <div
-            class="rounded-xl bg-[#008170]/10 p-3"
-          >
+          <div class="rounded-xl bg-[#005B41]/10 p-3">
             <MoonIcon class="h-6 w-6 text-[#00A884]" />
           </div>
 
@@ -59,29 +58,28 @@ const changeTheme = (selectedTheme) => {
           </div>
         </div>
 
-        <h3 class="mt-5 font-semibold text-white">
+        <h3 class="app-text mt-5 font-semibold">
           Dark Mode
         </h3>
 
-        <p class="mt-1 text-sm text-gray-400">
+        <p class="app-text-muted mt-1 text-sm">
           Recommended for monitoring environments
         </p>
       </button>
 
       <!-- Light Mode -->
       <button
+        type="button"
         class="relative rounded-2xl border p-5 text-left transition-all duration-300"
         :class="
           theme === 'light'
             ? 'border-[#008170] bg-[#005B41]/10'
-            : 'border-white/10 bg-[#1B2435] hover:border-white/20'
+            : 'app-surface-soft app-border hover:opacity-90'
         "
         @click="changeTheme('light')"
       >
         <div class="flex items-start justify-between">
-          <div
-            class="rounded-xl bg-yellow-400/10 p-3"
-          >
+          <div class="rounded-xl bg-yellow-400/10 p-3">
             <SunIcon class="h-6 w-6 text-yellow-400" />
           </div>
 
@@ -93,11 +91,11 @@ const changeTheme = (selectedTheme) => {
           </div>
         </div>
 
-        <h3 class="mt-5 font-semibold text-white">
+        <h3 class="app-text mt-5 font-semibold">
           Light Mode
         </h3>
 
-        <p class="mt-1 text-sm text-gray-400">
+        <p class="app-text-muted mt-1 text-sm">
           Better visibility in bright environments
         </p>
       </button>

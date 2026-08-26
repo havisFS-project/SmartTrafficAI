@@ -1,4 +1,5 @@
 <script setup>
+import { toggleTheme } from "@/utils/theme"
 import {
   HomeIcon,
   VideoCameraIcon,
@@ -167,6 +168,7 @@ const systems = [
 
           <button
             class="app-text-muted flex w-full items-center gap-4 rounded-xl px-4 py-3 transition hover:bg-[#005B41]/10 hover:text-current"
+            @click="toggleTheme"
           >
             <MoonIcon class="h-6 w-6" />
 

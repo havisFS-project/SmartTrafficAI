@@ -12,6 +12,8 @@
   --color-primary-light: #00A884;
 
   --color-border: rgba(255, 255, 255, 0.05);
+
+  --color-toggle-off: #475569;
 }
 
 html.light {
@@ -28,6 +30,8 @@ html.light {
   --color-primary-light: #00A884;
 
   --color-border: rgba(15, 23, 42, 0.08);
+
+  --color-toggle-off: #CBD5E1;
 }
 
 :root {
@@ -133,6 +137,10 @@ html.light {
 
 .app-primary-bg:hover {
   background-color: var(--color-primary-light);
+}
+
+.app-toggle-off {
+  background-color: var(--color-toggle-off);
 }
 
 html,
