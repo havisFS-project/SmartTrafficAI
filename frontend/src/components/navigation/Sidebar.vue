@@ -1,5 +1,11 @@
 <script setup>
-import { toggleTheme } from "@/utils/theme"
+import { ref, onMounted, onUnmounted } from "vue"
+
+import {
+  getTheme,
+  toggleTheme,
+} from "@/utils/theme"
+
 import {
   HomeIcon,
   VideoCameraIcon,
@@ -8,7 +14,10 @@ import {
   Cog6ToothIcon,
   SparklesIcon,
   MoonIcon,
+  SunIcon,
 } from "@heroicons/vue/24/outline"
+
+const currentTheme = ref(getTheme())
 
 const menus = [
   {
@@ -57,6 +66,28 @@ const systems = [
     status: "Connected",
   },
 ]
+
+const changeTheme = () => {
+  currentTheme.value = toggleTheme()
+}
+
+const handleThemeChange = (event) => {
+  currentTheme.value = event.detail
+}
+
+onMounted(() => {
+  window.addEventListener(
+    "theme-changed",
+    handleThemeChange,
+  )
+})
+
+onUnmounted(() => {
+  window.removeEventListener(
+    "theme-changed",
+    handleThemeChange,
+  )
+})
 </script>
 
 <template>
@@ -86,30 +117,52 @@ const systems = [
           v-for="menu in menus"
           :key="menu.name"
           :to="menu.path"
-          class="app-text-muted group relative mx-3 mb-2 flex items-center gap-4 rounded-xl px-5 py-3 transition-all duration-300 hover:bg-[#005B41]/10 hover:text-current hover:shadow-md"
-          active-class="bg-[#005B41] text-white shadow-lg"
+          custom
+          v-slot="{ navigate, isActive }"
         >
-          <div
-            class="absolute left-0 h-8 w-1 rounded-r-full bg-[#00A884]"
-          />
-
-          <component
-            :is="menu.icon"
-            class="h-6 w-6 transition-all duration-300 group-hover:scale-110"
-          />
-
-          <span
-            class="font-medium transition-all duration-300 group-hover:translate-x-1"
+          <a
+            :href="menu.path"
+            @click="navigate"
+            :class="[
+              'group relative mx-3 mb-2 flex items-center gap-4 rounded-xl px-5 py-3 transition-all duration-300',
+              isActive
+                ? 'bg-[#005B41] text-white shadow-lg'
+                : 'app-text-muted hover:bg-[#005B41]/10 hover:text-current',
+            ]"
           >
-            {{ menu.name }}
-          </span>
+            <!-- Active Indicator -->
+            <div
+              v-if="isActive"
+              class="absolute left-0 h-8 w-1 rounded-r-full bg-[#00A884]"
+            />
 
-          <span
-            v-if="menu.badge"
-            class="ml-auto rounded-full bg-[#008170] px-2 py-1 text-xs font-semibold text-white"
-          >
-            {{ menu.badge }}
-          </span>
+            <!-- Icon -->
+            <component
+              :is="menu.icon"
+              :class="[
+                'h-6 w-6 transition-transform duration-300 group-hover:scale-110',
+                isActive ? 'text-white' : 'app-text-muted',
+              ]"
+            />
+
+            <!-- Label -->
+            <span
+              :class="[
+                'font-medium transition-transform duration-300 group-hover:translate-x-1',
+                isActive ? 'text-white' : 'app-text-muted',
+              ]"
+            >
+              {{ menu.name }}
+            </span>
+
+            <!-- Badge -->
+            <span
+              v-if="menu.badge"
+              class="ml-auto rounded-full bg-[#008170] px-2 py-1 text-xs font-semibold text-white"
+            >
+              {{ menu.badge }}
+            </span>
+          </a>
         </RouterLink>
       </div>
 
@@ -156,24 +209,66 @@ const systems = [
         <div class="space-y-2 px-3">
           <RouterLink
             to="/settings"
-            class="app-text-muted flex w-full items-center gap-4 rounded-xl px-4 py-3 transition-all duration-300 hover:bg-black/5 hover:text-current"
-            active-class="bg-[#005B41] text-white"
+            custom
+            v-slot="{ navigate, isActive }"
           >
-            <Cog6ToothIcon class="h-6 w-6" />
+            <a
+              :href="isActive ? '/settings' : '/settings'"
+              @click="navigate"
+              :class="[
+                'group relative mx-3 flex w-auto items-center gap-4 rounded-xl px-5 py-3 transition-all duration-300',
+                isActive
+                  ? 'bg-[#005B41] text-white shadow-lg'
+                  : 'app-text-muted hover:bg-[#005B41]/10 hover:text-current',
+              ]"
+            >
+              <!-- Active Indicator -->
+              <div
+                v-if="isActive"
+                class="absolute left-0 h-8 w-1 rounded-r-full bg-[#00A884]"
+              />
 
-            <span class="font-medium">
-              Settings
-            </span>
+              <!-- Icon -->
+              <Cog6ToothIcon
+                :class="[
+                  'h-6 w-6 transition-transform duration-300 group-hover:scale-110',
+                  isActive ? 'text-white' : 'app-text-muted',
+                ]"
+              />
+
+              <!-- Label -->
+              <span
+                :class="[
+                  'font-medium transition-transform duration-300 group-hover:translate-x-1',
+                  isActive ? 'text-white' : 'app-text-muted',
+                ]"
+              >
+                Settings
+              </span>
+            </a>
           </RouterLink>
 
           <button
-            class="app-text-muted flex w-full items-center gap-4 rounded-xl px-4 py-3 transition hover:bg-[#005B41]/10 hover:text-current"
-            @click="toggleTheme"
+            type="button"
+            class="group relative mx-3 flex w-[calc(100%-1.5rem)] items-center gap-4 rounded-xl px-5 py-3 transition-all duration-300"
+            :class="
+              currentTheme === 'dark'
+                ? 'app-text-muted hover:bg-[#005B41]/10 hover:text-current'
+                : 'app-text-muted hover:bg-[#005B41]/10 hover:text-current'
+            "
+            @click="changeTheme"
           >
-            <MoonIcon class="h-6 w-6" />
+            <!-- Icon -->
+            <component
+              :is="currentTheme === 'dark' ? SunIcon : MoonIcon"
+              class="h-6 w-6 transition-transform duration-300 group-hover:scale-110"
+            />
 
-            <span class="font-medium">
-              Dark Mode
+            <!-- Label -->
+            <span
+              class="font-medium transition-transform duration-300 group-hover:translate-x-1"
+            >
+              {{ currentTheme === "dark" ? "Light Mode" : "Dark Mode" }}
             </span>
           </button>
         </div>
