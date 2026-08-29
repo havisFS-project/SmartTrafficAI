@@ -11,9 +11,13 @@ import {
 } from "@heroicons/vue/24/outline"
 
 import ChatMessageList from "@/components/chatbot/ChatMessageList.vue"
+import TypingIndicator from "@/components/chatbot/TypingIndicator.vue"
 
 const message = ref("")
 const hasMessages = ref(false)
+const isTyping = ref(false)
+
+const messages = ref([])
 
 const suggestions = [
   {
@@ -42,14 +46,55 @@ const selectSuggestion = (prompt) => {
   message.value = prompt
 }
 
+const generateAIResponse = (userMessage) => {
+  const text = userMessage.toLowerCase()
+
+  if (text.includes("traffic")) {
+    return "Traffic is currently moderate. Vehicle density has increased slightly compared with the previous 15 minutes."
+  }
+
+  if (text.includes("cctv")) {
+    return "There are currently 47 active CCTV cameras. One camera is offline and may require attention."
+  }
+
+  if (text.includes("prediction")) {
+    return "Traffic density is expected to increase during the next peak period. The highest congestion risk is predicted around 17:00 - 18:00."
+  }
+
+  if (text.includes("accident")) {
+    return "No critical accident has been detected in the latest monitoring data."
+  }
+
+  return "I can help you analyze traffic conditions, CCTV status, congestion, predictions, and detected incidents."
+}
+
 const sendMessage = () => {
   const trimmedMessage = message.value.trim()
 
-  if (!trimmedMessage) {
+  if (!trimmedMessage || isTyping.value) {
     return
   }
+  messages.value.push({
+    id: Date.now(),
+    role: "user",
+    content: trimmedMessage,
+    time: "Now",
+  })
 
+  message.value = ""
   hasMessages.value = true
+  isTyping.value = true
+
+  setTimeout(() => {
+    messages.value.push({
+      id: Date.now() + 1,
+      role: "assistant",
+      content: generateAIResponse(trimmedMessage),
+      time: "Now",
+    })
+
+    isTyping.value = false
+  }, 1200)
 }
 </script>
 
@@ -89,9 +134,12 @@ const sendMessage = () => {
     <!-- Chat Area -->
     <main class="flex min-h-0 flex-1 flex-col">
       <!-- Chat / Welcome Area -->
-      <div class="min-h-0 flex-1 overflow-y-auto px-6 py-8">
+      <div class="min-h-0 flex-1 px-6 py-8">
         <template v-if="hasMessages">
-          <ChatMessageList />
+          <ChatMessageList
+            :messages="messages"
+            :is-typing="isTyping"
+          />
         </template>
 
         <template v-else>
@@ -155,13 +203,15 @@ const sendMessage = () => {
             v-model="message"
             rows="1"
             placeholder="Ask SmartTraffic AI..."
-            class="app-surface-soft app-text app-border min-h-12 flex-1 resize-none rounded-xl border px-4 py-3 outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00A884] focus:ring-4 focus:ring-[#008170]/20 focus:shadow-[0_0_18px_rgba(0,168,132,0.2)]"
+            :disabled="isTyping"
+            class="app-surface-soft app-text app-border min-h-12 flex-1 resize-none rounded-xl border px-4 py-3 outline-none transition-all duration-300 placeholder:text-gray-500 focus:border-[#00A884] focus:ring-4 focus:ring-[#008170]/20 focus:shadow-[0_0_18px_rgba(0,168,132,0.2)] disabled:cursor-not-allowed disabled:opacity-60"
             @keydown.enter.exact.prevent="sendMessage"
           />
 
           <button
             type="button"
-            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#008170] text-white transition hover:bg-[#00A884]"
+            :disabled="isTyping"
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#008170] text-white transition hover:bg-[#00A884] disabled:cursor-not-allowed disabled:opacity-50"
             @click="sendMessage"
           >
             <PaperAirplaneIcon class="h-5 w-5" />

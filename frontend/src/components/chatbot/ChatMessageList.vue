@@ -1,51 +1,60 @@
 <script setup>
-import ChatMessage from "./ChatMessage.vue"
+import { nextTick, ref, watch } from "vue"
 
-const messages = [
-  {
-    id: 1,
-    role: "assistant",
-    content:
-      "Hello Havis! 👋\nHow can I help you with traffic monitoring today?",
-    time: "21:40",
+import ChatMessage from "./ChatMessage.vue"
+import TypingIndicator from "./TypingIndicator.vue"
+
+const props = defineProps({
+  messages: {
+    type: Array,
+    required: true,
   },
-  {
-    id: 2,
-    role: "user",
-    content:
-      "How is the traffic condition at Highway KM 12?",
-    time: "21:41",
+
+  isTyping: {
+    type: Boolean,
+    default: false,
   },
-  {
-    id: 3,
-    role: "assistant",
-    content:
-      "Traffic is currently heavy at Highway KM 12. AI detection reports increased vehicle density compared with the previous 15 minutes.",
-    time: "21:41",
+})
+
+const messageContainer = ref(null)
+
+const scrollToBottom = async () => {
+  await nextTick()
+
+  if (!messageContainer.value) {
+    return
+  }
+
+  messageContainer.value.scrollTo({
+    top: messageContainer.value.scrollHeight,
+    behavior: "smooth",
+  })
+}
+
+watch(
+  [
+    () => props.messages.length,
+    () => props.isTyping,
+  ],
+  () => {
+    scrollToBottom()
   },
-  {
-    id: 4,
-    role: "user",
-    content:
-      "What do you recommend?",
-    time: "21:42",
-  },
-  {
-    id: 5,
-    role: "assistant",
-    content:
-      "I recommend increasing the green-light duration and monitoring the intersection for the next 15 minutes.",
-    time: "21:42",
-  },
-]
+)
 </script>
 
 <template>
-  <div class="mx-auto w-full max-w-4xl space-y-5">
-    <ChatMessage
-      v-for="message in messages"
-      :key="message.id"
-      :message="message"
-    />
+  <div
+    ref="messageContainer"
+    class="mx-auto max-h-[calc(100vh-14rem)] w-full max-w-4xl overflow-y-auto pr-2"
+  >
+    <div class="space-y-5">
+      <ChatMessage
+        v-for="message in messages"
+        :key="message.id"
+        :message="message"
+      />
+
+      <TypingIndicator v-if="isTyping" />
+    </div>
   </div>
 </template>
