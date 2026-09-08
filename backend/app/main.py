@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.cameras import router as cameras_router
 from app.api.traffic import router as traffic_router
@@ -11,6 +12,16 @@ app = FastAPI(
     title=settings.APP_NAME,
     description="AI-powered traffic monitoring backend",
     version=settings.APP_VERSION,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(cameras_router)

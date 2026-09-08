@@ -1,17 +1,43 @@
 <script setup>
-import { computed, ref } from "vue"
+import { computed, ref, onMounted, onUnmounted } from "vue"
 import VueApexCharts from "vue3-apexcharts"
 
 import { isDarkTheme } from "@/utils/theme"
 
+const props = defineProps({
+  trafficData: {
+    type: Array,
+    default: () => [],
+  },
+})
+
 const themeVersion = ref(0)
 
-const series = [
-  {
-    name: "Vehicles",
-    data: [120, 180, 240, 300, 260, 420, 510],
-  },
-]
+
+const series = computed(() => {
+  return [
+    {
+      name: "Vehicles",
+      data: props.trafficData.map(
+        (item) => item.vehicle_count,
+      ),
+    },
+  ]
+})
+
+
+const categories = computed(() => {
+  return props.trafficData.map((item) => {
+    return new Date(item.timestamp).toLocaleTimeString(
+      [],
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+      },
+    )
+  })
+})
+
 
 const chartOptions = computed(() => {
   themeVersion.value
@@ -21,16 +47,19 @@ const chartOptions = computed(() => {
   return {
     chart: {
       type: "line",
+
       toolbar: {
         show: false,
       },
+
       zoom: {
         enabled: false,
       },
+
       background: "transparent",
+
       animations: {
-        enabled: true,
-        speed: 500,
+        enabled: false,
       },
     },
 
@@ -46,15 +75,7 @@ const chartOptions = computed(() => {
     },
 
     xaxis: {
-      categories: [
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu",
-        "Fri",
-        "Sat",
-        "Sun",
-      ],
+      categories: categories.value,
 
       labels: {
         style: {
@@ -64,6 +85,13 @@ const chartOptions = computed(() => {
     },
 
     yaxis: {
+      title: {
+        text: "Vehicles",
+        style: {
+          color: dark ? "#94A3B8" : "#64748B",
+        },
+      },
+
       labels: {
         style: {
           colors: dark ? "#94A3B8" : "#64748B",
@@ -80,6 +108,27 @@ const chartOptions = computed(() => {
     },
   }
 })
+
+
+const handleThemeChange = () => {
+  themeVersion.value++
+}
+
+
+onMounted(() => {
+  window.addEventListener(
+    "theme-changed",
+    handleThemeChange,
+  )
+})
+
+
+onUnmounted(() => {
+  window.removeEventListener(
+    "theme-changed",
+    handleThemeChange,
+  )
+})
 </script>
 
 <template>
@@ -92,7 +141,7 @@ const chartOptions = computed(() => {
       </h2>
 
       <p class="app-text-muted text-sm">
-        Vehicle count in the last 7 days
+        Vehicle count based on recorded traffic data
       </p>
     </div>
 

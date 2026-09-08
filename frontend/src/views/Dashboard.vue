@@ -1,4 +1,5 @@
 <script setup>
+import { computed, onMounted, ref } from "vue"
 import {
   BaseCard,
   BaseBadge,
@@ -17,6 +18,100 @@ import AIPredictionCard from "@/components/dashboard/AIPredictionCard.vue"
 import RecentEventsCard from "@/components/dashboard/RecentEventsCard.vue"
 import WeatherCard from "@/components/dashboard/WeatherCard.vue"
 import SystemStatusCard from "@/components/dashboard/SystemStatusCard.vue"
+import {
+  getAlerts,
+  getCameras,
+  getTrafficStatistics,
+} from "@/services/api"
+
+const cameras = ref([])
+const cameraLoading = ref(false)
+const cameraError = ref("")
+
+const loadCameras = async () => {
+  cameraLoading.value = true
+  cameraError.value = ""
+
+  try {
+    const response = await getCameras()
+
+    cameras.value = response.data
+  } catch (error) {
+    cameraError.value = error.message
+  } finally {
+    cameraLoading.value = false
+  }
+}
+
+onMounted(() => {
+  loadCameras()
+  loadAlerts()
+  loadTrafficStatistics()
+})
+
+const activeCameraCount = computed(() => {
+  return cameras.value.filter(
+    (camera) => camera.status === "Live",
+  ).length
+})
+
+const alerts = ref([])
+const alertLoading = ref(false)
+const alertError = ref("")
+
+const loadAlerts = async () => {
+  alertLoading.value = true
+  alertError.value = ""
+
+  try {
+    const response = await getAlerts()
+
+    alerts.value = response.data
+  } catch (error) {
+    alertError.value = error.message
+  } finally {
+    alertLoading.value = false
+  }
+}
+
+const trafficStats = ref({
+  total_records: 0,
+  total_vehicles: 0,
+  average_speed: 0,
+  density: {},
+})
+
+const trafficLoading = ref(false)
+const trafficError = ref("")
+
+const loadTrafficStatistics = async () => {
+  trafficLoading.value = true
+  trafficError.value = ""
+
+  try {
+    const response = await getTrafficStatistics({
+      camera_id: "CAM-001",
+    })
+
+    trafficStats.value = response
+  } catch (error) {
+    trafficError.value = error.message
+  } finally {
+    trafficLoading.value = false
+  }
+}
+
+const currentTrafficDensity = computed(() => {
+  const density = trafficStats.value.density
+
+  if (!density || Object.keys(density).length === 0) {
+    return "Unknown"
+  }
+
+  return Object.entries(density).sort(
+    (a, b) => b[1] - a[1],
+  )[0][0]
+})
 </script>
 
 <!-- Welcome -->
@@ -51,18 +146,21 @@ import SystemStatusCard from "@/components/dashboard/SystemStatusCard.vue"
 class="grid grid-cols-4 gap-6">
 
 <BaseStatCard
-title="Vehicle Count"
-value="15,284"
-subtitle="+8% Today"
-:icon="TruckIcon"
+  title="Vehicle Count"
+  :value="trafficLoading
+    ? '...'
+    : trafficStats.total_vehicles.toLocaleString()"
+  subtitle="Recorded Traffic"
+  :icon="TruckIcon"
+  color="green"
 />
 
 <BaseStatCard
-title="Active CCTV"
-value="48"
-subtitle="Online"
-:icon="VideoCameraIcon"
-color="blue"
+  title="Active CCTV"
+  :value="String(activeCameraCount)"
+  subtitle="Online"
+  :icon="VideoCameraIcon"
+  color="blue"
 />
 
 <BaseStatCard
@@ -73,11 +171,11 @@ subtitle="Excellent"
 />
 
 <BaseStatCard
-title="Traffic Density"
-value="Medium"
-subtitle="Realtime"
-:icon="SignalIcon"
-color="yellow"
+  title="Traffic Density"
+  :value="currentTrafficDensity"
+  subtitle="CAM-001"
+  :icon="SignalIcon"
+  color="yellow"
 />
 
 </div>
@@ -191,7 +289,7 @@ color="yellow"
 
 <section class="mt-6 grid grid-cols-3 gap-6">
 
-    <RecentEventsCard/>
+    <RecentEventsCard :alerts="alerts" />
 
     <WeatherCard/>
 
