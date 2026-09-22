@@ -4,9 +4,24 @@ import VueApexCharts from "vue3-apexcharts"
 
 import { isDarkTheme } from "@/utils/theme"
 
-const theme = ref(isDarkTheme() ? "dark" : "light")
 
-const series = [42, 36, 12, 7, 3]
+const props = defineProps({
+  distribution: {
+    type: Object,
+    default: () => ({}),
+  },
+
+  totalVehicles: {
+    type: Number,
+    default: 0,
+  },
+})
+
+
+const theme = ref(
+  isDarkTheme() ? "dark" : "light",
+)
+
 
 const labels = [
   "Car",
@@ -15,6 +30,34 @@ const labels = [
   "Bus",
   "Others",
 ]
+
+
+const series = computed(() => {
+  const car = props.distribution.car ?? 0
+  const motorcycle = props.distribution.motorcycle ?? 0
+  const truck = props.distribution.truck ?? 0
+  const bus = props.distribution.bus ?? 0
+
+  const classifiedVehicles =
+    car
+    + motorcycle
+    + truck
+    + bus
+
+  const others = Math.max(
+    props.totalVehicles - classifiedVehicles,
+    0,
+  )
+
+  return [
+    car,
+    motorcycle,
+    truck,
+    bus,
+    others,
+  ]
+})
+
 
 const chartOptions = computed(() => {
   const dark = theme.value === "dark"
@@ -69,9 +112,11 @@ const chartOptions = computed(() => {
   }
 })
 
+
 const handleThemeChange = (event) => {
   theme.value = event.detail
 }
+
 
 onMounted(() => {
   window.addEventListener(
@@ -79,6 +124,7 @@ onMounted(() => {
     handleThemeChange,
   )
 })
+
 
 onUnmounted(() => {
   window.removeEventListener(

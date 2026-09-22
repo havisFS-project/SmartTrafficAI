@@ -4,9 +4,35 @@ import VueApexCharts from "vue3-apexcharts"
 
 import { isDarkTheme } from "@/utils/theme"
 
-const theme = ref(isDarkTheme() ? "dark" : "light")
 
-const series = [72]
+const props = defineProps({
+  density: {
+    type: String,
+    default: "Unknown",
+  },
+})
+
+
+const theme = ref(
+  isDarkTheme() ? "dark" : "light",
+)
+
+
+const densityScore = computed(() => {
+  const scoreMap = {
+    Low: 33,
+    Medium: 66,
+    High: 100,
+  }
+
+  return scoreMap[props.density] ?? 0
+})
+
+
+const series = computed(() => {
+  return [densityScore.value]
+})
+
 
 const chartOptions = computed(() => {
   const dark = theme.value === "dark"
@@ -62,9 +88,11 @@ const chartOptions = computed(() => {
   }
 })
 
+
 const handleThemeChange = (event) => {
   theme.value = event.detail
 }
+
 
 onMounted(() => {
   window.addEventListener(
@@ -72,6 +100,7 @@ onMounted(() => {
     handleThemeChange,
   )
 })
+
 
 onUnmounted(() => {
   window.removeEventListener(

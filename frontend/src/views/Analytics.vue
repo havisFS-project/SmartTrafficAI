@@ -97,6 +97,28 @@ const loadPredictions = async () => {
     predictionLoading.value = false
   }
 }
+
+const latestTrafficData = computed(() => {
+  if (!trafficData.value.length) {
+    return null
+  }
+
+  return trafficData.value[
+    trafficData.value.length - 1
+  ]
+})
+
+const latestVehicleDistribution = computed(() => {
+  return latestTrafficData.value?.vehicle_distribution ?? {}
+})
+
+const latestPrediction = computed(() => {
+  if (!predictions.value.length) {
+    return null
+  }
+
+  return predictions.value[0]
+})
 </script>
 
 <template>
@@ -164,7 +186,9 @@ const loadPredictions = async () => {
         />
       </div>
 
-      <TrafficDensityChart />
+      <TrafficDensityChart
+        :density="latestTrafficData?.density ?? 'Unknown'"
+      />
 
     </section>
 
@@ -172,7 +196,10 @@ const loadPredictions = async () => {
 
     <section class="grid gap-6 md:grid-cols-2">
 
-      <VehicleDistribution />
+      <VehicleDistribution
+        :distribution="latestVehicleDistribution"
+        :total-vehicles="latestTrafficData?.vehicle_count ?? 0"
+      />
 
       <PredictionHistory
         :predictions="predictions"
@@ -184,7 +211,10 @@ const loadPredictions = async () => {
 
     <section class="grid gap-6 xl:grid-cols-2">
 
-      <AIInsight />
+      <AIInsight
+        :traffic-data="latestTrafficData"
+        :prediction="latestPrediction"
+      />
 
       <HeatmapCard />
 
