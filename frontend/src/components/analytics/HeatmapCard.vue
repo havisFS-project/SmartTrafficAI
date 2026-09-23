@@ -4,23 +4,44 @@ import {
   MapPinIcon,
 } from "@heroicons/vue/24/outline"
 
-const hotspots = [
-  {
-    location: "Highway KM 12",
-    status: "Heavy",
-    color: "bg-red-500/10 text-red-400",
+const props = defineProps({
+  hotspots: {
+    type: Array,
+    default: () => [],
   },
-  {
-    location: "City Center",
-    status: "Medium",
-    color: "bg-yellow-500/10 text-yellow-400",
-  },
-  {
-    location: "Airport Road",
-    status: "Normal",
-    color: "bg-green-500/10 text-green-400",
-  },
-]
+})
+
+const getStatus = (density) => {
+  if (density === "High") {
+    return "Heavy"
+  }
+
+  if (density === "Medium") {
+    return "Medium"
+  }
+
+  if (density === "Low") {
+    return "Normal"
+  }
+
+  return "Unknown"
+}
+
+const getStatusClass = (density) => {
+  if (density === "High") {
+    return "bg-red-500/10 text-red-400"
+  }
+
+  if (density === "Medium") {
+    return "bg-yellow-500/10 text-yellow-400"
+  }
+
+  if (density === "Low") {
+    return "bg-green-500/10 text-green-400"
+  }
+
+  return "bg-gray-500/10 text-gray-400"
+}
 </script>
 
 <template>
@@ -63,8 +84,8 @@ const hotspots = [
     <!-- Hotspots -->
     <div class="mt-6 space-y-3">
       <div
-        v-for="spot in hotspots"
-        :key="spot.location"
+        v-for="spot in props.hotspots"
+        :key="spot.camera_id"
         class="app-surface-soft flex items-center justify-between rounded-xl px-4 py-3"
       >
         <div>
@@ -73,16 +94,25 @@ const hotspots = [
           </p>
 
           <p class="app-text-muted text-sm">
-            Traffic Hotspot
+            {{ spot.camera_id }} · Traffic Hotspot
           </p>
         </div>
 
         <span
           class="rounded-full px-3 py-1 text-xs font-semibold"
-          :class="spot.color"
+          :class="getStatusClass(spot.density)"
         >
-          {{ spot.status }}
+          {{ getStatus(spot.density) }}
         </span>
+      </div>
+
+      <div
+        v-if="props.hotspots.length === 0"
+        class="app-surface-soft rounded-xl px-4 py-6 text-center"
+      >
+        <p class="app-text-muted text-sm">
+          No traffic hotspot data available.
+        </p>
       </div>
     </div>
   </div>

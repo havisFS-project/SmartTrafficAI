@@ -23,10 +23,13 @@ import {
 } from "@heroicons/vue/24/outline"
 
 import {
+  getCameras,
   getPredictions,
   getTrafficData,
   getTrafficStatistics,
 } from "@/services/api"
+
+const cameras = ref([])
 
 const trafficData = ref([])
 
@@ -46,11 +49,17 @@ const loadAnalyticsData = async () => {
   trafficError.value = ""
 
   try {
-    const [trafficResponse, statisticsResponse] = await Promise.all([
+    const [
+      cameraResponse,
+      trafficResponse,
+      statisticsResponse,
+    ] = await Promise.all([
+      getCameras(),
       getTrafficData(),
       getTrafficStatistics(),
     ])
 
+    cameras.value = cameraResponse.data
     trafficData.value = trafficResponse.data
     trafficStats.value = statisticsResponse
   } catch (error) {
@@ -59,6 +68,47 @@ const loadAnalyticsData = async () => {
     trafficLoading.value = false
   }
 }
+
+const trafficHotspots = computed(() => {
+  if (!trafficData.value.length) {
+    return []
+  }
+
+  const cameraMap = new Map(
+    cameras.value.map((camera) => [
+      camera.camera_id,
+      camera,
+    ]),
+  )
+
+  const latestByCamera = new Map()
+
+  for (const record of trafficData.value) {
+    const existing = latestByCamera.get(record.camera_id)
+
+    if (
+      !existing ||
+      new Date(record.timestamp) > new Date(existing.timestamp)
+    ) {
+      latestByCamera.set(record.camera_id, record)
+    }
+  }
+
+  return Array.from(latestByCamera.values()).map(
+    (record) => {
+      const camera = cameraMap.get(record.camera_id)
+
+      return {
+        camera_id: record.camera_id,
+        location:
+          camera?.location ?? record.camera_id,
+        density: record.density ?? "Unknown",
+        latitude: camera?.latitude ?? null,
+        longitude: camera?.longitude ?? null,
+      }
+    },
+  )
+})
 
 
 const currentDensity = computed(() => {
@@ -216,7 +266,9 @@ const latestPrediction = computed(() => {
         :prediction="latestPrediction"
       />
 
-      <HeatmapCard />
+      <HeatmapCard
+        :hotspots="trafficHotspots"
+      />
 
     </section>
 
